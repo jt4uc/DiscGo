@@ -1,9 +1,14 @@
 package cs4720.cs.virginia.edu.discgo;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
@@ -90,7 +95,34 @@ public class MapsActivity extends FragmentActivity {
      */
     private GoogleMap.OnMarkerClickListener markerClickListener = new GoogleMap.OnMarkerClickListener() {
         @Override
-        public boolean onMarkerClick(Marker marker) {
+        public boolean onMarkerClick(final Marker marker) {
+            // if the marker doesn't have a title, prompt the user to name it
+            if (marker.getTitle() == null) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity.this);
+                builder.setMessage("Name your course");
+                final EditText editText = new EditText(getApplicationContext());
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.MATCH_PARENT);
+                editText.setLayoutParams(layoutParams);
+                editText.setTextColor(Color.BLACK); // so the cursor is white... lolol let's not fix it now ;)
+                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User clicked OK button
+                        marker.setTitle(String.valueOf(editText.getText()));
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                        dialog.dismiss();
+                    }
+                });
+                builder.setView(editText);
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+
             return false; // does the default behavior - shows info window and centers marker on map
         }
     };
