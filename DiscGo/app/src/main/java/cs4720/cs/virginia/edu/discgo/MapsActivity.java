@@ -2,6 +2,7 @@ package cs4720.cs.virginia.edu.discgo;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -108,7 +109,12 @@ public class MapsActivity extends FragmentActivity {
                 builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // User clicked OK button
-                        marker.setTitle(String.valueOf(editText.getText()));
+                        String courseName = String.valueOf(editText.getText());
+                        marker.setTitle(courseName);
+                        Intent cameraIntent = new Intent(MapsActivity.this, CameraActivity.class);
+                        cameraIntent.putExtra(Intent.EXTRA_TEXT, courseName);
+                        cameraIntent.setType("text/plain");
+                        MapsActivity.this.startActivity(cameraIntent);
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
