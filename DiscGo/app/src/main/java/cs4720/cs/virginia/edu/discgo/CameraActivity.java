@@ -18,6 +18,7 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class CameraActivity extends AppCompatActivity {
@@ -26,6 +27,7 @@ public class CameraActivity extends AppCompatActivity {
     ImageView imageView;
 
     private int par = 0;
+    private String holeName = "";
     private String parString = "";
     private String starting_path = "";
     private String ending_path = "";
@@ -40,13 +42,10 @@ public class CameraActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String courseName = getIntent().getStringExtra(Intent.EXTRA_TEXT);
-        setTitle(courseName);
+        holeName = getIntent().getStringExtra(Intent.EXTRA_TEXT);
+        setTitle(holeName);
         setContentView(R.layout.activity_camera);
         if (savedInstanceState != null) { // on orientation change restore the state
-//            par = Integer.parseInt(savedInstanceState.getString(SAVED_PAR));
-//            EditText parText = (EditText) findViewById(R.id.par);
-//            parText.setText(par);
             parString = savedInstanceState.getString(SAVED_PAR);
             if(!parString.equals(""))
                 par = Integer.parseInt(parString);
@@ -100,17 +99,29 @@ public class CameraActivity extends AppCompatActivity {
         dispatchTakePictureIntent(1);
     }
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        EditText parText = (EditText) findViewById(R.id.par);
-//        par = Integer.parseInt(String.valueOf(parText.getText()));
-//    }
-
     public void save(View v) {
         EditText parText = (EditText) findViewById(R.id.par);
-        par = Integer.parseInt(String.valueOf(parText.getText()));
-        Toast toast = Toast.makeText(getApplicationContext(), "Will eventually save everything into a database", Toast.LENGTH_SHORT);
+        if(String.valueOf(parText.getText()).equals("")) {
+            par = 0;
+        }
+        else {
+            par = Integer.parseInt(String.valueOf(parText.getText()));
+        }
+
+        Hole h = new Hole();
+        h.setName(holeName);
+        h.setPar(par);
+        h.setStartingPointUri(starting_path);
+        h.setEndingPointUri(ending_path);
+        h.save();
+
+        ArrayList<Hole> holes = MyApplication.getDBHelper().getAllHoles();
+        String holeNames = "";
+        for(int i = 0; i < holes.size(); i++) {
+            holeNames += holes.get(i).getName();
+        }
+
+        Toast toast = Toast.makeText(getApplicationContext(), "Saved to database. Holes in database: " + holeNames, Toast.LENGTH_SHORT);
         toast.show();
     }
 
