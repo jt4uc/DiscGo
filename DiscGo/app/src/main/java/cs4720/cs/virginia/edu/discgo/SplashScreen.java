@@ -14,11 +14,12 @@ public class SplashScreen extends Activity {
     }
 
     public void play(View v) {
-
+        Intent intent = new Intent(SplashScreen.this, PlayMapsActivity.class);
+        SplashScreen.this.startActivity(intent);
     }
 
     public void createCourse(View v) {
-        Intent intent = new Intent(SplashScreen.this, MapsActivity.class);
+        Intent intent = new Intent(SplashScreen.this, CreateMapsActivity.class);
         SplashScreen.this.startActivity(intent);
     }
 }

@@ -6,13 +6,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -20,7 +16,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapsActivity extends FragmentActivity {
+public class CreateMapsActivity extends FragmentActivity {
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
 
@@ -98,7 +94,7 @@ public class MapsActivity extends FragmentActivity {
         public boolean onMarkerClick(final Marker marker) {
             // if the marker doesn't have a title, prompt the user to name it
             if (marker.getTitle() == null) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(CreateMapsActivity.this);
                 builder.setMessage("Name your course");
                 final EditText editText = new EditText(getApplicationContext());
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
@@ -111,10 +107,10 @@ public class MapsActivity extends FragmentActivity {
                         // User clicked OK button
                         String courseName = String.valueOf(editText.getText());
                         marker.setTitle(courseName);
-                        Intent cameraIntent = new Intent(MapsActivity.this, CameraActivity.class);
+                        Intent cameraIntent = new Intent(CreateMapsActivity.this, CreateHoleActivity.class);
                         cameraIntent.putExtra(Intent.EXTRA_TEXT, courseName);
                         cameraIntent.setType("text/plain");
-                        MapsActivity.this.startActivity(cameraIntent);
+                        CreateMapsActivity.this.startActivity(cameraIntent);
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

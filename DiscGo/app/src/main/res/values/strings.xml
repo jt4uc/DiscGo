@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">DiscGo</string>
-    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_createmap">Create Course</string>
+    <string name="title_activity_playmap">Play</string>
     <string name="title_activity_camera">Create Hole</string>
     <string name="title_splashscreen">DiscGo</string>
 </resources>
