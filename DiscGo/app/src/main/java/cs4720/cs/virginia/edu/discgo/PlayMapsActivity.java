@@ -7,7 +7,12 @@ import android.view.View;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.ArrayList;
 
 public class PlayMapsActivity extends FragmentActivity {
 
@@ -18,12 +23,14 @@ public class PlayMapsActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_playmaps);
         setUpMapIfNeeded();
+        loadMarkers();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         setUpMapIfNeeded();
+        loadMarkers();
     }
 
     public void showScores(View v) {
@@ -61,6 +68,16 @@ public class PlayMapsActivity extends FragmentActivity {
     private void setUpMap() {
         mMap.setMyLocationEnabled(true); // Enable the MyLocation button at the top right of the screen
         mMap.setOnMarkerClickListener(markerClickListener);
+    }
+
+    public void loadMarkers() {
+        ArrayList<Hole> holes = MyApplication.getDBHelper().getAllHoles();
+        for(int i = 0; i < holes.size(); i++) {
+            LatLng latLng = new LatLng(holes.get(i).getLatitude(), holes.get(i).getLongitude());
+            mMap.addMarker(new MarkerOptions()
+                    .position(latLng)
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+        }
     }
 
     /**

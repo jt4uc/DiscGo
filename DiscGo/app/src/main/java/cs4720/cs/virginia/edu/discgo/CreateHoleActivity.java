@@ -8,6 +8,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -23,6 +24,9 @@ public class CreateHoleActivity extends AppCompatActivity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
     String mCurrentPhotoPath;
     ImageView imageView;
+
+    private float latitude = 0;
+    private float longitude = 0;
 
     private int par = 0;
     private String holeName = "";
@@ -41,6 +45,8 @@ public class CreateHoleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         holeName = getIntent().getStringExtra(Intent.EXTRA_TEXT);
+        latitude = Float.parseFloat(getIntent().getStringExtra("LATITUDE"));
+        longitude = Float.parseFloat(getIntent().getStringExtra("LONGITUDE"));
         setTitle(holeName);
         setContentView(R.layout.activity_createhole);
         if (savedInstanceState != null) { // on orientation change restore the state
@@ -108,6 +114,8 @@ public class CreateHoleActivity extends AppCompatActivity {
 
         Hole h = new Hole();
         h.setName(holeName);
+        h.setLatitude(latitude);
+        h.setLongitude(longitude);
         h.setPar(par);
         h.setStartingPointUri(starting_path);
         h.setEndingPointUri(ending_path);
@@ -116,11 +124,12 @@ public class CreateHoleActivity extends AppCompatActivity {
         ArrayList<Hole> holes = MyApplication.getDBHelper().getAllHoles();
         String holeNames = "";
         for(int i = 0; i < holes.size(); i++) {
-            holeNames += holes.get(i).getName();
+            holeNames += holes.get(i).getLatitude() + ", " + holes.get(i).getLongitude() + "; ";
         }
 
-        Toast toast = Toast.makeText(getApplicationContext(), "Saved to database. Holes in database: " + holeNames, Toast.LENGTH_SHORT);
-        toast.show();
+//        Toast toast = Toast.makeText(getApplicationContext(), "Coord " + holeNames, Toast.LENGTH_SHORT);
+//        toast.show();
+        finish();
     }
 
     private File createImageFile() throws IOException {

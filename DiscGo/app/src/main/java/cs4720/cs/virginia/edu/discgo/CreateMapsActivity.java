@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -83,6 +84,7 @@ public class CreateMapsActivity extends FragmentActivity {
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // User clicked OK button
+                finish();
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -129,7 +131,7 @@ public class CreateMapsActivity extends FragmentActivity {
             // if the marker doesn't have a title, prompt the user to name it
             if (marker.getTitle() == null) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(CreateMapsActivity.this);
-                builder.setMessage("Name your course");
+                builder.setMessage("Name your hole");
                 final EditText editText = new EditText(getApplicationContext());
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
@@ -139,10 +141,12 @@ public class CreateMapsActivity extends FragmentActivity {
                 builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // User clicked OK button
-                        String courseName = String.valueOf(editText.getText());
-                        marker.setTitle(courseName);
+                        String holeName = String.valueOf(editText.getText());
+                        marker.setTitle(holeName);
                         Intent cameraIntent = new Intent(CreateMapsActivity.this, CreateHoleActivity.class);
-                        cameraIntent.putExtra(Intent.EXTRA_TEXT, courseName);
+                        cameraIntent.putExtra(Intent.EXTRA_TEXT, holeName);
+                        cameraIntent.putExtra("LATITUDE", "" + marker.getPosition().latitude);
+                        cameraIntent.putExtra("LONGITUDE", "" + marker.getPosition().longitude);
                         cameraIntent.setType("text/plain");
                         CreateMapsActivity.this.startActivity(cameraIntent);
                     }
