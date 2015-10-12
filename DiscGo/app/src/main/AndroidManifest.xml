@@ -41,13 +41,17 @@
         </activity>
         <activity
             android:name=".CreateMapsActivity"
-            android:label="@string/title_activity_createmap"></activity>
+            android:label="@string/title_activity_createmap"
+            android:configChanges="orientation|screenSize">
+            </activity>
         <activity
             android:name=".CreateHoleActivity"
             android:label="@string/title_activity_camera"></activity>
         <activity
             android:name=".PlayMapsActivity"
-            android:label="@string/title_activity_playmap"></activity>
+            android:label="@string/title_activity_playmap"
+            android:configChanges="orientation|screenSize">
+            </activity>
         <activity
             android:name=".PlayHoleActivity"
             android:label="@string/title_activity_playhole"></activity>
