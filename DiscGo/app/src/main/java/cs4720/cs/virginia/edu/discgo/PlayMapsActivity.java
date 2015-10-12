@@ -1,7 +1,9 @@
 package cs4720.cs.virginia.edu.discgo;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.view.View;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -22,6 +24,19 @@ public class PlayMapsActivity extends FragmentActivity {
     protected void onResume() {
         super.onResume();
         setUpMapIfNeeded();
+    }
+
+    public void showScores(View v) {
+
+    }
+
+    /**
+     * ############CHANGE THIS!!!!!!!!!!!################
+     * @param v
+     */
+    public void placeHolder(View v) {
+        Intent intent = new Intent(PlayMapsActivity.this, PlayHoleActivity.class);
+        PlayMapsActivity.this.startActivity(intent);
     }
 
     private void setUpMapIfNeeded() {

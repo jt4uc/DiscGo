@@ -40,7 +40,7 @@ public class PlayHoleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         holeName = getIntent().getStringExtra(Intent.EXTRA_TEXT);
         setTitle(holeName);
-        setContentView(R.layout.activity_camera);
+        setContentView(R.layout.activity_playhole);
         if (savedInstanceState != null) { // on orientation change restore the state
             parString = savedInstanceState.getString(SAVED_PAR);
             if(!parString.equals(""))
@@ -109,6 +109,10 @@ public class PlayHoleActivity extends AppCompatActivity {
 
         Toast toast = Toast.makeText(getApplicationContext(), "Saved to database. Holes in database: " + holeNames, Toast.LENGTH_SHORT);
         toast.show();
+    }
+
+    public void enterScore(View v) {
+
     }
 
 //    private File createImageFile() throws IOException {
