@@ -1,8 +1,14 @@
 <resources>
     <string name="app_name">DiscGo</string>
-    <string name="title_activity_createmap">Create Course</string>
+    <string name="title_activity_createmap">Create Holes</string>
     <string name="title_activity_playmap">Play</string>
     <string name="title_activity_camera">Create Hole</string>
     <string name="title_activity_playhole">Hole</string>
     <string name="title_splashscreen">DiscGo</string>
+    <string name="title_activity_enter_scores">enterScoresActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_display_score">DisplayScoreActivity</string>
+    <string name="title_activity_names">NamesActivity</string>
 </resources>

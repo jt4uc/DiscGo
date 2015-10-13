@@ -35,7 +35,8 @@ public class PlayMapsActivity extends FragmentActivity {
     }
 
     public void showScores(View v) {
-
+        Intent intent = new Intent(PlayMapsActivity.this, DisplayScoreActivity.class);
+        PlayMapsActivity.this.startActivity(intent);
     }
 
     private void setUpMapIfNeeded() {

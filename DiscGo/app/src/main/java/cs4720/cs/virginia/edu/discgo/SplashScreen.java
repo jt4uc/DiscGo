@@ -22,9 +22,13 @@ public class SplashScreen extends Activity {
             Toast toast = Toast.makeText(getApplicationContext(), "There aren't any holes! Go create some!", Toast.LENGTH_SHORT);
             toast.show();
         } else {
-            Intent intent = new Intent(SplashScreen.this, PlayMapsActivity.class);
+            Intent intent = new Intent(SplashScreen.this, NamesActivity.class);
             SplashScreen.this.startActivity(intent);
+//            Intent intent = new Intent(SplashScreen.this, PlayMapsActivity.class);
+//            SplashScreen.this.startActivity(intent);
         }
+        MyApplication.getDBHelper().resetScore();
+        MyApplication.getDBHelper().resetNames();
     }
 
     public void createCourse(View v) {

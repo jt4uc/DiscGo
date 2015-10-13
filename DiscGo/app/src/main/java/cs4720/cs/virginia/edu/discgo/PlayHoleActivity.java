@@ -7,11 +7,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 
 
@@ -76,7 +74,7 @@ public class PlayHoleActivity extends AppCompatActivity {
 //
 //    }
 
-    public void save(View v) {
+   /* public void save(View v) {
         EditText parText = (EditText) findViewById(R.id.par);
         if(String.valueOf(parText.getText()).equals("")) {
             par = 0;
@@ -100,9 +98,12 @@ public class PlayHoleActivity extends AppCompatActivity {
 
         Toast toast = Toast.makeText(getApplicationContext(), "Saved to database. Holes in database: " + holeNames, Toast.LENGTH_SHORT);
         toast.show();
-    }
+    }*/
 
     public void enterScore(View v) {
+
+        Intent enterIntent = new Intent(PlayHoleActivity.this, EnterScoresActivity.class);
+        PlayHoleActivity.this.startActivity(enterIntent);
 
     }
 
