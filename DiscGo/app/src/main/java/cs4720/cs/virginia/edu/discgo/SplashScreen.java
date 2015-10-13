@@ -14,7 +14,9 @@ public class SplashScreen extends Activity {
     }
 
     public void play(View v) {
-        Intent intent = new Intent(SplashScreen.this, PlayMapsActivity.class);
+        MyApplication.getDBHelper().resetScore();
+        MyApplication.getDBHelper().resetNames();
+        Intent intent = new Intent(SplashScreen.this, NamesActivity.class);
         SplashScreen.this.startActivity(intent);
     }
 

@@ -6,11 +6,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
-
-import java.util.ArrayList;
 
 
 /**
@@ -73,10 +69,10 @@ public class PlayHoleActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState (Bundle outState) {
 
-        EditText parText = (EditText) findViewById(R.id.par);
+     /*   EditText parText = (EditText) findViewById(R.id.par);
         if(!parText.getText().equals("")) {
             parString = String.valueOf(parText.getText());
-        }
+        }*/
         outState.putString(SAVED_PAR, parString);
         outState.putString(STARTING_POINT_URI, starting_path);
         outState.putString(ENDING_POINT_URI, ending_path);
@@ -85,7 +81,7 @@ public class PlayHoleActivity extends AppCompatActivity {
 
     }
 
-    public void save(View v) {
+   /* public void save(View v) {
         EditText parText = (EditText) findViewById(R.id.par);
         if(String.valueOf(parText.getText()).equals("")) {
             par = 0;
@@ -109,9 +105,12 @@ public class PlayHoleActivity extends AppCompatActivity {
 
         Toast toast = Toast.makeText(getApplicationContext(), "Saved to database. Holes in database: " + holeNames, Toast.LENGTH_SHORT);
         toast.show();
-    }
+    }*/
 
     public void enterScore(View v) {
+
+        Intent enterIntent = new Intent(PlayHoleActivity.this, EnterScoresActivity.class);
+        PlayHoleActivity.this.startActivity(enterIntent);
 
     }
 
