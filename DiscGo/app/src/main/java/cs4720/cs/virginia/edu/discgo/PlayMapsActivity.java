@@ -3,6 +3,7 @@ package cs4720.cs.virginia.edu.discgo;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.google.android.gms.maps.GoogleMap;
@@ -35,15 +36,6 @@ public class PlayMapsActivity extends FragmentActivity {
 
     public void showScores(View v) {
 
-    }
-
-    /**
-     * ############CHANGE THIS!!!!!!!!!!!################
-     * @param v
-     */
-    public void placeHolder(View v) {
-        Intent intent = new Intent(PlayMapsActivity.this, PlayHoleActivity.class);
-        PlayMapsActivity.this.startActivity(intent);
     }
 
     private void setUpMapIfNeeded() {
@@ -86,6 +78,20 @@ public class PlayMapsActivity extends FragmentActivity {
     private GoogleMap.OnMarkerClickListener markerClickListener = new GoogleMap.OnMarkerClickListener() {
         @Override
         public boolean onMarkerClick(final Marker marker) {
+            ArrayList<Hole> holes = MyApplication.getDBHelper().getAllHoles();
+            String holeName = "";
+            int holeId = -1;
+            for(int i = 0; i < holes.size(); i++) {
+                if (holes.get(i).getLatitude() == marker.getPosition().latitude && holes.get(i).getLongitude() == marker.getPosition().longitude) {
+                    holeName = holes.get(i).getName();
+                    holeId = holes.get(i).getId();
+                    break;
+                }
+            }
+            Intent intent = new Intent(PlayMapsActivity.this, PlayHoleActivity.class);
+            intent.putExtra(Intent.EXTRA_TEXT, holeName);
+            intent.putExtra("ID", "" + holeId);
+            PlayMapsActivity.this.startActivity(intent);
 
             return false; // does the default behavior - shows info window and centers marker on map
         }

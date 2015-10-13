@@ -13,14 +13,4 @@
         android:text="Scores"
         android:textSize="25dp" />
 
-    <Button
-        android:id="@+id/placeholderButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|top"
-        android:onClick="placeHolder"
-        android:text="PlaceHolder"
-        android:textSize="25dp" />
-
-
     </fragment>

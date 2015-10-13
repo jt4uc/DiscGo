@@ -37,7 +37,7 @@
         android:layout_gravity="center_horizontal"
         android:onClick="createCourse"
         android:layout_marginTop="50dp"
-        android:text="Create Course"
+        android:text="Create Holes"
         android:textSize="25dp"/>
 
 

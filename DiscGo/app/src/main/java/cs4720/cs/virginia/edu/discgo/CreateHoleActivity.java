@@ -39,7 +39,7 @@ public class CreateHoleActivity extends AppCompatActivity {
     private static final String ENDING_POINT_URI = "ENDING";
 
     private boolean savedStateExists = false;
-
+    private boolean saved = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +93,16 @@ public class CreateHoleActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        if (!saved) {
+            Toast toast = Toast.makeText(getApplicationContext(), "Save the hole!", Toast.LENGTH_SHORT);
+            toast.show();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
     public void firstImage(View v){
         imageView = (ImageView) findViewById(R.id.imageView);
         dispatchTakePictureIntent(0);
@@ -129,6 +139,7 @@ public class CreateHoleActivity extends AppCompatActivity {
 
 //        Toast toast = Toast.makeText(getApplicationContext(), "Coord " + holeNames, Toast.LENGTH_SHORT);
 //        toast.show();
+        saved = true;
         finish();
     }
 

@@ -5,9 +5,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -23,16 +25,13 @@ public class PlayHoleActivity extends AppCompatActivity {
     ImageView imageView;
 
     private int par = 0;
+    private int holeId;
     private String holeName = "";
-    private String parString = "";
     private String starting_path = "";
     private String ending_path = "";
 
-    private static final String SAVED_PAR = "";
-    private static final String STARTING_POINT_URI = "STARTING";
-    private static final String ENDING_POINT_URI = "ENDING";
-
     private boolean savedStateExists = false;
+    private Hole hole;
 
 
     @Override
@@ -40,18 +39,11 @@ public class PlayHoleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         holeName = getIntent().getStringExtra(Intent.EXTRA_TEXT);
         setTitle(holeName);
+        holeId = Integer.parseInt(getIntent().getStringExtra("ID"));
+        hole = MyApplication.getDBHelper().getHoleById(holeId);
         setContentView(R.layout.activity_playhole);
-        if (savedInstanceState != null) { // on orientation change restore the state
-            parString = savedInstanceState.getString(SAVED_PAR);
-            if(!parString.equals(""))
-                par = Integer.parseInt(parString);
-
-            starting_path = savedInstanceState.getString(STARTING_POINT_URI);
-
-            ending_path = savedInstanceState.getString(ENDING_POINT_URI);
-
-            savedStateExists = true;
-        }
+        TextView parText = (TextView) findViewById(R.id.playpartext);
+        parText.setText("Par: " + hole.getPar());
 
     }
 
@@ -59,31 +51,30 @@ public class PlayHoleActivity extends AppCompatActivity {
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
 
-        if(savedStateExists) {
-            mCurrentPhotoPath = starting_path;
-            imageView = (ImageView) findViewById(R.id.imageView);
+            mCurrentPhotoPath = hole.getStartingPointUri();
+            imageView = (ImageView) findViewById(R.id.firstpic);
             setPic();
 
-            mCurrentPhotoPath = ending_path;
-            imageView = (ImageView) findViewById(R.id.imageView2);
+            mCurrentPhotoPath = hole.getEndingPointUri();
+            imageView = (ImageView) findViewById(R.id.secondpic);
             setPic();
-        }
-    }
-
-    @Override
-    protected void onSaveInstanceState (Bundle outState) {
-
-        EditText parText = (EditText) findViewById(R.id.par);
-        if(!parText.getText().equals("")) {
-            parString = String.valueOf(parText.getText());
-        }
-        outState.putString(SAVED_PAR, parString);
-        outState.putString(STARTING_POINT_URI, starting_path);
-        outState.putString(ENDING_POINT_URI, ending_path);
-
-        super.onSaveInstanceState(outState);
 
     }
+//
+//    @Override
+//    protected void onSaveInstanceState (Bundle outState) {
+//
+//        EditText parText = (EditText) findViewById(R.id.par);
+//        if(!parText.getText().equals("")) {
+//            parString = String.valueOf(parText.getText());
+//        }
+//        outState.putString(SAVED_PAR, parString);
+//        outState.putString(STARTING_POINT_URI, starting_path);
+//        outState.putString(ENDING_POINT_URI, ending_path);
+//
+//        super.onSaveInstanceState(outState);
+//
+//    }
 
     public void save(View v) {
         EditText parText = (EditText) findViewById(R.id.par);

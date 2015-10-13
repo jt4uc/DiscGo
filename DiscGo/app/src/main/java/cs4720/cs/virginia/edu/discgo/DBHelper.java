@@ -161,5 +161,27 @@ public class DBHelper extends SQLiteOpenHelper {
         return hole;
     }
 
+    public Hole getHoleByName(String name) {
+        SQLiteDatabase db = getReadableDatabase();
+        String selectQuery = "SELECT  * FROM " + TABLE_HOLE + " WHERE "
+                + COLUMN_HOLE_NAME + " = " + name;
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+
+        Hole hole = new Hole();
+        hole.setId(cursor.getInt(cursor.getColumnIndex(COLUMN_HOLE_ID)));
+        hole.setName(cursor.getString(cursor.getColumnIndex(COLUMN_HOLE_NAME)));
+        hole.setLatitude(cursor.getFloat(cursor.getColumnIndex(COLUMN_LATITUDE)));
+        hole.setLongitude(cursor.getFloat(cursor.getColumnIndex(COLUMN_LONGITUDE)));
+        hole.setPar(cursor.getInt(cursor.getColumnIndex(COLUMN_PAR)));
+        hole.setStartingPointUri(cursor.getString(cursor.getColumnIndex(COLUMN_STARTING_POINT_URI)));
+        hole.setEndingPointUri(cursor.getString(cursor.getColumnIndex(COLUMN_ENDING_POINT_URI)));
+
+        return hole;
+    }
+
 
 }

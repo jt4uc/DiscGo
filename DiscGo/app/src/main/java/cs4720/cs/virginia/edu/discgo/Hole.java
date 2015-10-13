@@ -80,7 +80,11 @@ public class Hole {
         MyApplication.getDBHelper().deleteHole(id);
     }
 
-    public Hole getHoleById() {
-        return MyApplication.getDBHelper().getHoleById(id);
-    }
+//    public Hole getHoleById() {
+//        return MyApplication.getDBHelper().getHoleById(id);
+//    }
+
+//    public Hole getHoleByName() {
+//        return MyApplication.getDBHelper().getHoleByName(name);
+//    }
 }
