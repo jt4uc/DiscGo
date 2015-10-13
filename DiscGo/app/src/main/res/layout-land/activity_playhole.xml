@@ -6,6 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#85E085"
     tools:context=".PlayHoleActivity">
 
     <TextView
@@ -50,6 +51,10 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:onClick="enterScore"
+        android:textColor="#009933"
+        android:background="#B8B8B8"
+        android:textAllCaps="false"
+        android:layout_marginTop="15dp"
         android:text="Enter Score" />
 
 

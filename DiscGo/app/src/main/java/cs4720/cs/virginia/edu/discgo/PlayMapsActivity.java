@@ -34,6 +34,12 @@ public class PlayMapsActivity extends FragmentActivity {
         loadMarkers();
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent cameraIntent = new Intent(PlayMapsActivity.this, SplashScreen.class);
+        PlayMapsActivity.this.startActivity(cameraIntent);
+    }
+
     public void showScores(View v) {
         Intent intent = new Intent(PlayMapsActivity.this, DisplayScoreActivity.class);
         PlayMapsActivity.this.startActivity(intent);

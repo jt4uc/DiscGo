@@ -6,6 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#85E085"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -42,6 +43,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginTop="15dp"
             android:orientation="vertical">
 
             <Button
@@ -50,7 +52,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:onClick="firstImage"
-                android:text="Take Picture of Starting Point" />
+                android:textColor="#009933"
+                android:background="#B8B8B8"
+                android:textAllCaps="false"
+                android:text="  Take Picture of Starting Point  " />
 
             <ImageView
                 android:id="@+id/imageView"
@@ -67,6 +72,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginTop="15dp"
             android:orientation="vertical">
 
             <Button
@@ -75,7 +81,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:onClick="secondImage"
-                android:text="Take Picture of End Point" />
+                android:textColor="#009933"
+                android:background="#B8B8B8"
+                android:textAllCaps="false"
+                android:text="  Take Picture of End Point  " />
 
             <ImageView
                 android:id="@+id/imageView2"
@@ -96,6 +105,10 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:onClick="save"
+        android:textColor="#009933"
+        android:background="#B8B8B8"
+        android:textAllCaps="false"
+        android:layout_marginTop="15dp"
         android:text="Save" />
 
 

@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#85E085"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
@@ -34,9 +35,14 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="Take Picture of Starting Point"
+        android:text="  Take Picture of Starting Point  "
         android:id="@+id/button"
         android:onClick="firstImage"
+        android:textColor="#009933"
+        android:background="#B8B8B8"
+        android:textAllCaps="false"
+        android:layout_marginTop="15dp"
+        android:padding="8dp"
         android:layout_gravity="center_horizontal"/>
 
     <ImageView
@@ -46,15 +52,20 @@
         android:layout_weight="5"
         android:minHeight="64dp"
         android:minWidth="64dp"
+        android:layout_margin="20dp"
         android:layout_gravity="center_horizontal"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="Take Picture of End Point"
+        android:text="  Take Picture of End Point  "
         android:id="@+id/button2"
         android:onClick="secondImage"
+        android:textColor="#009933"
+        android:background="#B8B8B8"
+        android:textAllCaps="false"
+        android:padding="8dp"
         android:layout_gravity="center_horizontal" />
 
     <ImageView
@@ -64,6 +75,7 @@
         android:id="@+id/imageView2"
         android:minHeight="64dp"
         android:minWidth="64dp"
+        android:layout_margin="20dp"
         android:layout_gravity="center_horizontal"  />
 
     <Button
@@ -73,6 +85,9 @@
         android:text="Save"
         android:id="@+id/saveButton"
         android:onClick="save"
+        android:textColor="#009933"
+        android:background="#B8B8B8"
+        android:textAllCaps="false"
         android:layout_gravity="center_horizontal" />
 
 

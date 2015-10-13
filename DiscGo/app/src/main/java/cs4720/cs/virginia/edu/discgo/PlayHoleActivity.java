@@ -58,6 +58,12 @@ public class PlayHoleActivity extends AppCompatActivity {
             setPic();
 
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent cameraIntent = new Intent(PlayHoleActivity.this, PlayMapsActivity.class);
+        PlayHoleActivity.this.startActivity(cameraIntent);
+    }
 //
 //    @Override
 //    protected void onSaveInstanceState (Bundle outState) {

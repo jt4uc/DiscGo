@@ -1,5 +1,6 @@
 package cs4720.cs.virginia.edu.discgo;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -81,6 +82,12 @@ public class DisplayScoreActivity extends AppCompatActivity {
         player4.setText(Integer.toString(totalPlayer4));
         player5.setText(Integer.toString(totalPlayer5));
         player6.setText(Integer.toString(totalPlayer6));
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent cameraIntent = new Intent(DisplayScoreActivity.this, PlayMapsActivity.class);
+        DisplayScoreActivity.this.startActivity(cameraIntent);
     }
 
     public void next(View view){

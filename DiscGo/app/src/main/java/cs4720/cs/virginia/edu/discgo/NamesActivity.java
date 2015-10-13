@@ -39,6 +39,12 @@ public class NamesActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent cameraIntent = new Intent(NamesActivity.this, SplashScreen.class);
+        NamesActivity.this.startActivity(cameraIntent);
+    }
+
     public void saveName(View view){
 
         EditText player1Text = (EditText) findViewById(R.id.name1);

@@ -7,6 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#85E085"
     tools:context=".PlayHoleActivity">
 
 
@@ -36,6 +37,7 @@
         android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
         android:layout_weight="5"
+        android:layout_marginTop="25dp"
         android:minHeight="64dp"
         android:minWidth="64dp" />
 
@@ -45,7 +47,11 @@
         android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
         android:layout_weight="1"
+        android:textColor="#009933"
+        android:background="#B8B8B8"
+        android:textAllCaps="false"
         android:onClick="enterScore"
+        android:layout_marginTop="15dp"
         android:text="Enter Score" />
 
 

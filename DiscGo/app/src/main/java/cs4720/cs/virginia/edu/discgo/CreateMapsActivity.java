@@ -39,6 +39,12 @@ public class CreateMapsActivity extends FragmentActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent cameraIntent = new Intent(CreateMapsActivity.this, SplashScreen.class);
+        CreateMapsActivity.this.startActivity(cameraIntent);
+    }
+
     /**
      * Sets up the map if it is possible to do so (i.e., the Google Play services APK is correctly
      * installed) and the map has not already been instantiated.. This will ensure that we only ever

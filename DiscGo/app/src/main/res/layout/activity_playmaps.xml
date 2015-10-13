@@ -11,6 +11,9 @@
         android:layout_marginBottom="20dp"
         android:onClick="showScores"
         android:text="Scores"
-        android:textSize="25dp" />
+        android:textSize="25dp"
+        android:textColor="#B8B8B8"
+        android:background="#009933"
+        android:textAllCaps="false"/>
 
     </fragment>

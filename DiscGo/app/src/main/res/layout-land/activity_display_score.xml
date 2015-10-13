@@ -5,93 +5,103 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:background="#85E085"
-    tools:context="cs4720.cs.virginia.edu.discgo.EnterScoresActivity">
+    tools:context="cs4720.cs.virginia.edu.discgo.DisplayScoreActivity">
 
-    <EditText
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/enter1"
-        android:textSize="35dp"
-        android:inputType="number"
-        android:layout_alignParentTop="true"
+        android:text="d"
+        android:id="@+id/score1"
+        android:textSize="16dp"
+        android:layout_below="@+id/button"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="5dp"
-        android:minWidth="50dp"/>
+        android:layout_marginTop="20dp" />
 
-    <EditText
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/enter2"
-        android:textSize="35dp"
-        android:inputType="number"
-        android:layout_below="@+id/enter1"
+        android:text="d"
+        android:id="@+id/score2"
+        android:textSize="16dp"
+        android:layout_below="@+id/score1"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-        android:minWidth="50dp"/>
+        android:layout_marginTop="40dp" />
 
-    <EditText
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/enter3"
-        android:textSize="35dp"
-        android:inputType="number"
-        android:layout_below="@+id/enter2"
+        android:text="d"
+        android:id="@+id/score3"
+        android:textSize="16dp"
+        android:layout_below="@+id/score2"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-        android:minWidth="50dp"/>
+        android:layout_marginTop="40dp" />
 
-    <EditText
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/enter4"
-        android:textSize="35dp"
-        android:inputType="number"
-        android:layout_below="@+id/enter3"
+        android:text="d"
+        android:id="@+id/score4"
+        android:textSize="16dp"
+        android:layout_below="@+id/score3"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-        android:minWidth="50dp"/>
+        android:layout_marginTop="40dp" />
 
-    <EditText
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/enter5"
-        android:textSize="35dp"
-        android:inputType="number"
-        android:layout_below="@+id/enter4"
+        android:text="d"
+        android:id="@+id/score5"
+        android:textSize="16dp"
+        android:layout_below="@+id/score4"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-        android:minWidth="50dp"/>
+        android:layout_marginTop="40dp" />
 
-    <EditText
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/enter6"
-        android:textSize="35dp"
-        android:inputType="number"
-        android:layout_below="@+id/enter5"
+        android:text="d"
+        android:id="@+id/score6"
+        android:textSize="16dp"
+        android:layout_below="@+id/score5"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-        android:minWidth="50dp"/>
+        android:layout_marginTop="40dp" />
+
+
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Save"
-        android:id="@+id/button2"
-        android:onClick="save"
+        android:text="Previous"
+        android:id="@+id/button3"
+        android:onClick="previous"
         android:textColor="#009933"
         android:background="#B8B8B8"
         android:textAllCaps="false"
-        android:layout_marginBottom="35dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Next"
+        android:id="@+id/button4"
+        android:onClick="next"
+        android:textColor="#009933"
+        android:background="#B8B8B8"
+        android:textAllCaps="false"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Player One"
-        android:id="@+id/nameLabel1"
-        android:textSize="35dp"
-        android:layout_alignBottom="@+id/enter1"
+        android:id="@+id/scoreLabel1"
+        android:textSize="16dp"
+        android:layout_alignBottom="@+id/score1"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -99,9 +109,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Player Two"
-        android:id="@+id/nameLabel2"
-        android:textSize="35dp"
-        android:layout_alignBottom="@+id/enter2"
+        android:id="@+id/scoreLabel2"
+        android:textSize="16dp"
+        android:layout_alignBottom="@+id/score2"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -109,9 +119,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Player Three"
-        android:id="@+id/nameLabel3"
-        android:textSize="35dp"
-        android:layout_alignBottom="@+id/enter3"
+        android:id="@+id/scoreLabel3"
+        android:textSize="16dp"
+        android:layout_alignBottom="@+id/score3"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -119,9 +129,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Player Four"
-        android:id="@+id/nameLabel4"
-        android:textSize="35dp"
-        android:layout_alignBottom="@+id/enter4"
+        android:id="@+id/scoreLabel4"
+        android:textSize="16dp"
+        android:layout_alignBottom="@+id/score4"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -129,9 +139,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Player Five"
-        android:id="@+id/nameLabel5"
-        android:textSize="35dp"
-        android:layout_alignBottom="@+id/enter5"
+        android:id="@+id/scoreLabel5"
+        android:textSize="16dp"
+        android:layout_alignBottom="@+id/score5"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -139,9 +149,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Player Six"
-        android:id="@+id/nameLabel6"
-        android:textSize="35dp"
-        android:layout_alignBottom="@+id/enter6"
+        android:id="@+id/scoreLabel6"
+        android:textSize="16dp"
+        android:layout_alignBottom="@+id/score6"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 

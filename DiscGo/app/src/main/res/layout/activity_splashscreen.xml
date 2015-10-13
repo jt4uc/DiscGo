@@ -7,6 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#85E085"
     tools:context=".MainActivity">
 
     <TextView
@@ -17,7 +18,8 @@
         android:layout_marginTop="200dp"
         android:layout_marginBottom="75dp"
         android:text="DiscGo"
-        android:textSize="100dp"/>
+        android:textSize="100dp"
+        android:textColor="#009933" />
 
     <Button
         android:id="@+id/play"
@@ -27,8 +29,11 @@
         android:onClick="play"
         android:layout_marginBottom="50dp"
         android:layout_marginTop="50dp"
-        android:text="Play Game"
-        android:textSize="25dp" />
+        android:text=" Play Game "
+        android:textColor="#009933"
+        android:background="#B8B8B8"
+        android:textSize="25dp"
+        android:textAllCaps="false" />
 
     <Button
         android:id="@+id/createCourse"
@@ -37,8 +42,11 @@
         android:layout_gravity="center_horizontal"
         android:onClick="createCourse"
         android:layout_marginTop="50dp"
-        android:text="Create Holes"
-        android:textSize="25dp"/>
+        android:text=" Create Holes "
+        android:textColor="#009933"
+        android:background="#B8B8B8"
+        android:textAllCaps="false"
+        android:textSize="25dp" />
 
 
 </LinearLayout>

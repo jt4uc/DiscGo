@@ -1,5 +1,6 @@
 package cs4720.cs.virginia.edu.discgo;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -98,12 +99,15 @@ public class EnterScoresActivity extends AppCompatActivity {
             s6 = Integer.parseInt(String.valueOf(player6Text.getText()));
 
         // Toast.makeText(getApplicationContext(), s2, Toast.LENGTH_SHORT).show();
-        MyApplication.getDBHelper().saveScore(s1, s2, s3,s4,s5,s6);
+        MyApplication.getDBHelper().saveScore(s1, s2, s3, s4, s5, s6);
 
         ArrayList<Integer> scores = MyApplication.getDBHelper().getAllScores();
        
         //player1.setText("1");//scores.get(0));
         //player2.setText("2");//scores.get(1));
+
+        Intent intent = new Intent(EnterScoresActivity.this, PlayMapsActivity.class);
+        EnterScoresActivity.this.startActivity(intent);
 
     }
 
