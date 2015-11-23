@@ -14,9 +14,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.parse.ParseFile;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -136,6 +141,41 @@ public class CreateHoleActivity extends AppCompatActivity {
         ParseObject hole = new ParseObject("Hole");
         hole.put("holeName", holeName);
         hole.put("par", par);
+        ParseGeoPoint point = new ParseGeoPoint(latitude, longitude);
+        hole.put("location", point);
+
+        ArrayList<String> paths = new ArrayList<String>();
+        paths.add(starting_path);
+        paths.add(ending_path);
+
+        // File must be in byte[] form to create ParseFile from it
+        for(int i = 0; i < paths.size(); i++) {
+            File file = new File(paths.get(i));
+            int size = (int) file.length();
+            byte[] bytes = new byte[size];
+            try {
+                BufferedInputStream buf = new BufferedInputStream(new FileInputStream(file));
+                buf.read(bytes, 0, bytes.length);
+                buf.close();
+                if(i == 0) {
+                    ParseFile parseFile = new ParseFile("start.jpg", bytes);
+                    parseFile.saveInBackground();
+                    hole.put("startPic", parseFile);
+                } else {
+                    ParseFile parseFile = new ParseFile("end.jpg", bytes);
+                    parseFile.saveInBackground();
+                    hole.put("endPic", parseFile);
+                }
+
+            } catch (FileNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+
         hole.saveInBackground();
 
 //        ArrayList<Hole> holes = MyApplication.getDBHelper().getAllHoles();

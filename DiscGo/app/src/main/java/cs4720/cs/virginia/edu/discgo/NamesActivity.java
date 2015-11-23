@@ -17,10 +17,6 @@ public class NamesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setTitle("Enter Names Of Players");
         setContentView(R.layout.activity_names);
-
-        ParseObject testObject = new ParseObject("TestObject");
-        testObject.put("foo", "bar");
-        testObject.saveInBackground();
     }
 
     @Override
