@@ -18,15 +18,13 @@ public class SplashScreen extends Activity {
 
     public void play(View v) {
         ArrayList<Hole> holes = MyApplication.getDBHelper().getAllHoles();
-        if(holes.size() == 0) {
-            Toast toast = Toast.makeText(getApplicationContext(), "There aren't any holes! Go create some!", Toast.LENGTH_SHORT);
-            toast.show();
-        } else {
+//        if(holes.size() == 0) {
+//            Toast toast = Toast.makeText(getApplicationContext(), "There aren't any holes! Go create some!", Toast.LENGTH_SHORT);
+//            toast.show();
+//        } else {
             Intent intent = new Intent(SplashScreen.this, NamesActivity.class);
             SplashScreen.this.startActivity(intent);
-//            Intent intent = new Intent(SplashScreen.this, PlayMapsActivity.class);
-//            SplashScreen.this.startActivity(intent);
-        }
+       // }
         MyApplication.getDBHelper().resetScore();
         MyApplication.getDBHelper().resetNames();
     }

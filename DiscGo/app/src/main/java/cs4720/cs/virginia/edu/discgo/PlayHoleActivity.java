@@ -4,21 +4,30 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.parse.GetCallback;
+import com.parse.GetDataCallback;
+import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
-
-/**
- * JUST COPY AND PASTED - HAVEN'T MODIFIED IT ACCORDING TO FEATURE REQUIREMENTS
- */
+import java.util.Date;
 
 public class PlayHoleActivity extends AppCompatActivity {
-    static final int REQUEST_IMAGE_CAPTURE = 1;
     String mCurrentPhotoPath;
     ImageView imageView;
 
@@ -28,34 +37,95 @@ public class PlayHoleActivity extends AppCompatActivity {
     private String starting_path = "";
     private String ending_path = "";
 
-    private boolean savedStateExists = false;
-    private Hole hole;
+    //private Hole hole;
+    private ParseObject hole;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        holeName = getIntent().getStringExtra(Intent.EXTRA_TEXT);
-        setTitle(holeName);
-        holeId = Integer.parseInt(getIntent().getStringExtra("ID"));
-        hole = MyApplication.getDBHelper().getHoleById(holeId);
-        setContentView(R.layout.activity_playhole);
-        TextView parText = (TextView) findViewById(R.id.playpartext);
-        parText.setText("Par: " + hole.getPar());
+        String objectId = getIntent().getStringExtra(Intent.EXTRA_TEXT);
 
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Hole");
+        query.getInBackground(objectId, new GetCallback<ParseObject>() {
+            public void done(ParseObject object, ParseException e) {
+                if (e == null) {
+                    holeName = object.getString("holeName");
+                    par = object.getInt("par");
+                    setTitle(holeName);
+                    setContentView(R.layout.activity_playhole);
+                    TextView parText = (TextView) findViewById(R.id.playpartext);
+                    parText.setText("Par: " + par);
+
+                    ArrayList<String> colNames = new ArrayList<String>();
+                    colNames.add("startPic");
+                    colNames.add("endPic");
+                    for (int i = 0; i < colNames.size(); i++) {
+                        final ParseFile file = (ParseFile) object.get(colNames.get(i));
+                        file.getDataInBackground(new GetDataCallback() {
+                            public void done(byte[] data, ParseException e) {
+                                if (e == null) {
+                                    // data has the bytes for the resume
+                                    FileOutputStream fos = null;
+                                    try {
+                                        createImageFile();
+                                        fos = new FileOutputStream(mCurrentPhotoPath);
+                                        fos.write(data);
+                                        fos.close();
+                                        if (file.getName().contains("start")) {
+                                            starting_path = mCurrentPhotoPath;
+                                            imageView = (ImageView) findViewById(R.id.firstpic);
+                                            setPic();
+                                        } else {
+                                            ending_path = mCurrentPhotoPath;
+                                            imageView = (ImageView) findViewById(R.id.secondpic);
+                                            setPic();
+                                        }
+                                    } catch (FileNotFoundException e1) {
+                                        e1.printStackTrace();
+                                    } catch (IOException e2) {
+                                        // TODO Auto-generated catch block
+                                        e2.printStackTrace();
+                                    }
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+        });
+
+//        holeName = getIntent().getStringExtra(Intent.EXTRA_TEXT);
+//        setTitle(holeName);
+//        holeId = Integer.parseInt(getIntent().getStringExtra("ID"));
+//        hole = MyApplication.getDBHelper().getHoleById(holeId);
+//        setContentView(R.layout.activity_playhole);
+//        TextView parText = (TextView) findViewById(R.id.playpartext);
+//        parText.setText("Par: " + hole.getPar());
     }
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
 
-            mCurrentPhotoPath = hole.getStartingPointUri();
+        if (mCurrentPhotoPath != null) {
+            mCurrentPhotoPath = starting_path;
             imageView = (ImageView) findViewById(R.id.firstpic);
             setPic();
 
-            mCurrentPhotoPath = hole.getEndingPointUri();
+            mCurrentPhotoPath = ending_path;
             imageView = (ImageView) findViewById(R.id.secondpic);
             setPic();
+        }
+
+
+//            mCurrentPhotoPath = hole.getStartingPointUri();
+//            imageView = (ImageView) findViewById(R.id.firstpic);
+//            setPic();
+//
+//            mCurrentPhotoPath = hole.getEndingPointUri();
+//            imageView = (ImageView) findViewById(R.id.secondpic);
+//            setPic();
 
     }
 
@@ -64,47 +134,6 @@ public class PlayHoleActivity extends AppCompatActivity {
         Intent cameraIntent = new Intent(PlayHoleActivity.this, PlayMapsActivity.class);
         PlayHoleActivity.this.startActivity(cameraIntent);
     }
-//
-//    @Override
-//    protected void onSaveInstanceState (Bundle outState) {
-//
-//        EditText parText = (EditText) findViewById(R.id.par);
-//        if(!parText.getText().equals("")) {
-//            parString = String.valueOf(parText.getText());
-//        }
-//        outState.putString(SAVED_PAR, parString);
-//        outState.putString(STARTING_POINT_URI, starting_path);
-//        outState.putString(ENDING_POINT_URI, ending_path);
-//
-//        super.onSaveInstanceState(outState);
-//
-//    }
-
-   /* public void save(View v) {
-        EditText parText = (EditText) findViewById(R.id.par);
-        if(String.valueOf(parText.getText()).equals("")) {
-            par = 0;
-        }
-        else {
-            par = Integer.parseInt(String.valueOf(parText.getText()));
-        }
-
-        Hole h = new Hole();
-        h.setName(holeName);
-        h.setPar(par);
-        h.setStartingPointUri(starting_path);
-        h.setEndingPointUri(ending_path);
-        h.save();
-
-        ArrayList<Hole> holes = MyApplication.getDBHelper().getAllHoles();
-        String holeNames = "";
-        for(int i = 0; i < holes.size(); i++) {
-            holeNames += holes.get(i).getName();
-        }
-
-        Toast toast = Toast.makeText(getApplicationContext(), "Saved to database. Holes in database: " + holeNames, Toast.LENGTH_SHORT);
-        toast.show();
-    }*/
 
     public void enterScore(View v) {
 
@@ -113,62 +142,18 @@ public class PlayHoleActivity extends AppCompatActivity {
 
     }
 
-//    private File createImageFile() throws IOException {
-//        // Create an image file name
-//
-//        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-//        String imageFileName = "JPEG_" + timeStamp + "_";
-//        File storageDir = Environment.getExternalStoragePublicDirectory(
-//                Environment.DIRECTORY_PICTURES);
-//        File image = File.createTempFile(imageFileName,  /* prefix */".jpg",         /* suffix */storageDir      /* directory */
-//        );
-//        // Save a file: path for use with ACTION_VIEW intents
-//        mCurrentPhotoPath = image.getAbsolutePath();
-//        return image;
-//    }
-//    private void dispatchTakePictureIntent(int start_or_end) {
-//        //start_or_end determines which image it is
-//        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//        // Ensure that there's a camera activity to handle the intent
-//        //
-//        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-//            // Create the File where the photo should go
-//            File photoFile = null;
-//            try {
-//                photoFile = createImageFile();
-//            } catch (IOException ex) {
-//                // Error occurred while creating the File
-//                Toast.makeText(getApplicationContext(), "fail to make file ", Toast.LENGTH_LONG).show();
-//            }
-//            // Continue only if the File was successfully created
-//            if (photoFile != null) {
-//                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
-//                if(start_or_end == 0) {
-//                    starting_path = photoFile.getAbsolutePath();
-//                } else {
-//                    ending_path = photoFile.getAbsolutePath();
-//                }
-//                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-//
-//            }
-//        }
-//    }
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-//            galleryAddPic();
-//            setPic();
-//        }
-//    }
+    private void createImageFile() throws IOException {
+        // Create an image file name
 
-
-//    private void galleryAddPic() {
-//        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-//        File f = new File(mCurrentPhotoPath);
-//        Uri contentUri = Uri.fromFile(f);
-//        mediaScanIntent.setData(contentUri);
-//        this.sendBroadcast(mediaScanIntent);
-//    }
-
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(imageFileName,  /* prefix */".jpg",         /* suffix */storageDir      /* directory */
+        );
+        // Save a file: path for use with ACTION_VIEW intents
+        mCurrentPhotoPath = image.getAbsolutePath();
+    }
 
     private void setPic() {
         // Get the dimensions of the View

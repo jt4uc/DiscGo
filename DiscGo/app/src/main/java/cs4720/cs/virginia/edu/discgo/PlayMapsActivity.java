@@ -12,8 +12,14 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseGeoPoint;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PlayMapsActivity extends FragmentActivity {
 
@@ -70,13 +76,22 @@ public class PlayMapsActivity extends FragmentActivity {
     }
 
     public void loadMarkers() {
-        ArrayList<Hole> holes = MyApplication.getDBHelper().getAllHoles();
-        for(int i = 0; i < holes.size(); i++) {
-            LatLng latLng = new LatLng(holes.get(i).getLatitude(), holes.get(i).getLongitude());
-            mMap.addMarker(new MarkerOptions()
-                    .position(latLng)
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-        }
+        //ArrayList<Hole> holes = MyApplication.getDBHelper().getAllHoles();
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Hole");
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> holes, ParseException e) {
+                if (e == null) {
+                    for(int i = 0; i < holes.size(); i++) {
+                        ParseGeoPoint point = holes.get(i).getParseGeoPoint("location");
+                        LatLng latLng = new LatLng(point.getLatitude(), point.getLongitude());
+                        mMap.addMarker(new MarkerOptions()
+                                .position(latLng)
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                    }
+                }
+            }
+        });
     }
 
     /**
@@ -85,20 +100,42 @@ public class PlayMapsActivity extends FragmentActivity {
     private GoogleMap.OnMarkerClickListener markerClickListener = new GoogleMap.OnMarkerClickListener() {
         @Override
         public boolean onMarkerClick(final Marker marker) {
-            ArrayList<Hole> holes = MyApplication.getDBHelper().getAllHoles();
-            String holeName = "";
-            int holeId = -1;
-            for(int i = 0; i < holes.size(); i++) {
-                if (holes.get(i).getLatitude() == marker.getPosition().latitude && holes.get(i).getLongitude() == marker.getPosition().longitude) {
-                    holeName = holes.get(i).getName();
-                    holeId = holes.get(i).getId();
-                    break;
+//            ArrayList<Hole> holes = MyApplication.getDBHelper().getAllHoles();
+//            String holeName = "";
+//            int holeId = -1;
+//            for(int i = 0; i < holes.size(); i++) {
+//                if (holes.get(i).getLatitude() == marker.getPosition().latitude && holes.get(i).getLongitude() == marker.getPosition().longitude) {
+//                    holeName = holes.get(i).getName();
+//                    holeId = holes.get(i).getId();
+//                    break;
+//                }
+//            }
+
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("Hole");
+            query.findInBackground(new FindCallback<ParseObject>() {
+                public void done(List<ParseObject> holes, ParseException e) {
+                    if (e == null) {
+                        for(int i = 0; i < holes.size(); i++) {
+                            ParseGeoPoint point = holes.get(i).getParseGeoPoint("location");
+                            if (point.getLatitude() == marker.getPosition().latitude && point.getLongitude() == marker.getPosition().longitude) {
+                                String objectId = holes.get(i).getObjectId();
+                                Intent intent = new Intent(PlayMapsActivity.this, PlayHoleActivity.class);
+                                intent.putExtra(Intent.EXTRA_TEXT, objectId);
+                                PlayMapsActivity.this.startActivity(intent);
+                                break;
+                            }
+                        }
+                    }
                 }
-            }
-            Intent intent = new Intent(PlayMapsActivity.this, PlayHoleActivity.class);
-            intent.putExtra(Intent.EXTRA_TEXT, holeName);
-            intent.putExtra("ID", "" + holeId);
-            PlayMapsActivity.this.startActivity(intent);
+            });
+
+
+
+//            Intent intent = new Intent(PlayMapsActivity.this, PlayHoleActivity.class);
+//            intent.putExtra(Intent.EXTRA_TEXT, "blah");
+            //intent.putExtra(Intent.EXTRA_TEXT, holeName);
+            //intent.putExtra("ID", "" + holeId);
+            //PlayMapsActivity.this.startActivity(intent);
 
             return false; // does the default behavior - shows info window and centers marker on map
         }
