@@ -8,6 +8,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+import com.parse.ParseObject;
+
 public class NamesActivity extends AppCompatActivity {
 
     @Override
@@ -15,6 +17,10 @@ public class NamesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setTitle("Enter Names Of Players");
         setContentView(R.layout.activity_names);
+
+        ParseObject testObject = new ParseObject("TestObject");
+        testObject.put("foo", "bar");
+        testObject.saveInBackground();
     }
 
     @Override

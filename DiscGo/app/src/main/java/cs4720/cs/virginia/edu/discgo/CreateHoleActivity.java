@@ -14,6 +14,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.parse.ParseObject;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -131,11 +133,16 @@ public class CreateHoleActivity extends AppCompatActivity {
         h.setEndingPointUri(ending_path);
         h.save();
 
-        ArrayList<Hole> holes = MyApplication.getDBHelper().getAllHoles();
-        String holeNames = "";
-        for(int i = 0; i < holes.size(); i++) {
-            holeNames += holes.get(i).getLatitude() + ", " + holes.get(i).getLongitude() + "; ";
-        }
+        ParseObject hole = new ParseObject("Hole");
+        hole.put("holeName", holeName);
+        hole.put("par", par);
+        hole.saveInBackground();
+
+//        ArrayList<Hole> holes = MyApplication.getDBHelper().getAllHoles();
+//        String holeNames = "";
+//        for(int i = 0; i < holes.size(); i++) {
+//            holeNames += holes.get(i).getLatitude() + ", " + holes.get(i).getLongitude() + "; ";
+//        }
 
 //        Toast toast = Toast.makeText(getApplicationContext(), "Coord " + holeNames, Toast.LENGTH_SHORT);
 //        toast.show();
