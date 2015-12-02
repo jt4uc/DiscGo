@@ -55,7 +55,7 @@ public class NamesActivity extends AppCompatActivity {
     public void saveName(View view) {
 
         ParseObject game = new ParseObject("Game");
-        ArrayList<String> names = new ArrayList<String>();
+        ArrayList<String> playerObjectIds = new ArrayList<String>();
 
         EditText player1Text = (EditText) findViewById(R.id.name1);
         EditText player2Text = (EditText) findViewById(R.id.name2);
@@ -65,21 +65,47 @@ public class NamesActivity extends AppCompatActivity {
         EditText player6Text = (EditText) findViewById(R.id.name6);
 //        if(!String.valueOf(player1Text.getText()).equals(""))
 //           MyApplication.getDBHelper().saveName(String.valueOf(player1Text.getText()));
-        if(!String.valueOf(player1Text.getText()).equals(""))
-            names.add(String.valueOf(player1Text.getText()));
-        if(!String.valueOf(player2Text.getText()).equals(""))
-            names.add(String.valueOf(player2Text.getText()));
-        if(!String.valueOf(player3Text.getText()).equals(""))
-            names.add(String.valueOf(player3Text.getText()));
-        if(!String.valueOf(player4Text.getText()).equals(""))
-            names.add(String.valueOf(player4Text.getText()));
-        if(!String.valueOf(player5Text.getText()).equals(""))
-            names.add(String.valueOf(player5Text.getText()));
-        if(!String.valueOf(player6Text.getText()).equals(""))
-            names.add(String.valueOf(player6Text.getText()));
+
+        ArrayList<EditText> editTexts = new ArrayList<EditText>();
+        editTexts.add(player1Text);
+        editTexts.add(player2Text);
+        editTexts.add(player3Text);
+        editTexts.add(player4Text);
+        editTexts.add(player5Text);
+        editTexts.add(player6Text);
+
+        for (EditText e : editTexts) {
+            String name = String.valueOf(e.getText());
+            if (!name.equals("")) {
+                ParseObject player = new ParseObject("Player");
+                player.put("name", name);
+                try {
+                    player.save();
+                    playerObjectIds.add(player.getObjectId());
+                } catch (ParseException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        }
+
+//        if(!String.valueOf(player1Text.getText()).equals("")) {
+//
+//        }
+//            names.add(String.valueOf(player1Text.getText()));
+//        if(!String.valueOf(player2Text.getText()).equals(""))
+//            names.add(String.valueOf(player2Text.getText()));
+//        if(!String.valueOf(player3Text.getText()).equals(""))
+//            names.add(String.valueOf(player3Text.getText()));
+//        if(!String.valueOf(player4Text.getText()).equals(""))
+//            names.add(String.valueOf(player4Text.getText()));
+//        if(!String.valueOf(player5Text.getText()).equals(""))
+//            names.add(String.valueOf(player5Text.getText()));
+//        if(!String.valueOf(player6Text.getText()).equals(""))
+//            names.add(String.valueOf(player6Text.getText()));
         //MyApplication.getDBHelper().resetScore();
 
-        game.addAll("names", names);
+        game.addAll("players", playerObjectIds);
+        MyApplication.setPlayerIds(playerObjectIds);
         //game.saveInBackground(); // performed on a separate thread
         try {
             game.save();

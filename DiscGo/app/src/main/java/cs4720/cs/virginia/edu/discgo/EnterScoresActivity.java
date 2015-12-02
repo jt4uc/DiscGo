@@ -22,6 +22,7 @@ import java.util.List;
 public class EnterScoresActivity extends AppCompatActivity {
 
     private ParseObject game;
+    private ArrayList<String> players;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,61 +32,12 @@ public class EnterScoresActivity extends AppCompatActivity {
         setTitle("Enter Scores");
         //ArrayList<String> names =  MyApplication.getDBHelper().getAllNames();
         final ArrayList<String> names = new ArrayList<String>();
+        players = MyApplication.getPlayerIds();
 
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Game");
-        query.getInBackground(MyApplication.getGameId(), new GetCallback<ParseObject>() {
-            public void done(ParseObject object, ParseException e) {
-                if (e == null) {
-                    game = object;
-
-                    List tempList = object.getList("names");
-                    for (Object n: tempList) {
-                        names.add((String) n);
-                    }
-
-                    TextView player1 = (TextView) findViewById(R.id.nameLabel1);
-                    TextView player2 = (TextView) findViewById(R.id.nameLabel2);
-                    EditText player2Text = (EditText) findViewById(R.id.enter2);
-                    TextView player3 = (TextView) findViewById(R.id.nameLabel3);
-                    EditText player3Text = (EditText) findViewById(R.id.enter3);
-                    TextView player4 = (TextView) findViewById(R.id.nameLabel4);
-                    EditText player4Text = (EditText) findViewById(R.id.enter4);
-                    TextView player5 = (TextView) findViewById(R.id.nameLabel5);
-                    EditText player5Text = (EditText) findViewById(R.id.enter5);
-                    TextView player6 = (TextView) findViewById(R.id.nameLabel6);
-                    EditText player6Text = (EditText) findViewById(R.id.enter6);
-                    player1.setText(names.get(0));
-                    if(names.size()<2) {
-                        player2.setVisibility(View.INVISIBLE);
-                        player2Text.setVisibility(View.INVISIBLE);
-                    }else
-                        player2.setText(names.get(1));
-                    if(names.size()<3) {
-                        player3.setVisibility(View.INVISIBLE);
-                        player3Text.setVisibility(View.INVISIBLE);
-                    }else
-                        player3.setText(names.get(2));
-                    if(names.size() < 4) {
-                        player4.setVisibility(View.INVISIBLE);
-                        player4Text.setVisibility(View.INVISIBLE);
-                    }else
-                        player4.setText(names.get(3));
-                    if(names.size()<5) {
-                        player5.setVisibility(View.INVISIBLE);
-                        player5Text.setVisibility(View.INVISIBLE);
-                    }else
-                        player5.setText(names.get(4));
-                    if(names.size() <6) {
-                        player6.setVisibility(View.INVISIBLE);
-                        player6Text.setVisibility(View.INVISIBLE);
-                    }else
-                        player6.setText(names.get(5));
-                } else {
-                    // something went wrong
-                }
-            }
-        });
-
+        for(String p : players) {
+            names.add(queryPlayerName(p));
+        }
+        changeTexts(names);
     }
 
     public void save(View v){
@@ -127,7 +79,12 @@ public class EnterScoresActivity extends AppCompatActivity {
         else
             s6 = Integer.parseInt(String.valueOf(player6Text.getText()));
 
-        
+        int[] scores = new int[]{s1, s2, s3, s4, s5, s6};
+
+        for (int i = 0; i < players.size(); i++) {
+            addScores(players.get(i), scores[i]);
+        }
+
 
         // Toast.makeText(getApplicationContext(), s2, Toast.LENGTH_SHORT).show();
 //        MyApplication.getDBHelper().saveScore(s1, s2, s3, s4, s5, s6);
@@ -140,6 +97,68 @@ public class EnterScoresActivity extends AppCompatActivity {
         Intent intent = new Intent(EnterScoresActivity.this, PlayMapsActivity.class);
         EnterScoresActivity.this.startActivity(intent);
 
+    }
+
+    public void changeTexts(ArrayList<String> names) {
+        TextView player1 = (TextView) findViewById(R.id.nameLabel1);
+        TextView player2 = (TextView) findViewById(R.id.nameLabel2);
+        EditText player2Text = (EditText) findViewById(R.id.enter2);
+        TextView player3 = (TextView) findViewById(R.id.nameLabel3);
+        EditText player3Text = (EditText) findViewById(R.id.enter3);
+        TextView player4 = (TextView) findViewById(R.id.nameLabel4);
+        EditText player4Text = (EditText) findViewById(R.id.enter4);
+        TextView player5 = (TextView) findViewById(R.id.nameLabel5);
+        EditText player5Text = (EditText) findViewById(R.id.enter5);
+        TextView player6 = (TextView) findViewById(R.id.nameLabel6);
+        EditText player6Text = (EditText) findViewById(R.id.enter6);
+        player1.setText(names.get(0));
+        if(names.size()<2) {
+            player2.setVisibility(View.INVISIBLE);
+            player2Text.setVisibility(View.INVISIBLE);
+        }else
+            player2.setText(names.get(1));
+        if(names.size()<3) {
+            player3.setVisibility(View.INVISIBLE);
+            player3Text.setVisibility(View.INVISIBLE);
+        }else
+            player3.setText(names.get(2));
+        if(names.size() < 4) {
+            player4.setVisibility(View.INVISIBLE);
+            player4Text.setVisibility(View.INVISIBLE);
+        }else
+            player4.setText(names.get(3));
+        if(names.size()<5) {
+            player5.setVisibility(View.INVISIBLE);
+            player5Text.setVisibility(View.INVISIBLE);
+        }else
+            player5.setText(names.get(4));
+        if(names.size() <6) {
+            player6.setVisibility(View.INVISIBLE);
+            player6Text.setVisibility(View.INVISIBLE);
+        }else
+            player6.setText(names.get(5));
+    }
+
+    public String queryPlayerName(String playerId) {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Player");
+        try {
+            ParseObject player = query.get(playerId);
+            return (String) player.get("name");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void addScores(String playerId, int score) {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Player");
+        try {
+            ParseObject player = query.get(playerId);
+            player.add("scores", score);
+            player.saveInBackground();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
 }
