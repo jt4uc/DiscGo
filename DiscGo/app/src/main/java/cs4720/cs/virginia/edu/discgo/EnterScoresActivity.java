@@ -13,11 +13,15 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class EnterScoresActivity extends AppCompatActivity {
-
+private String courseName;
+    private int holeNumber;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter_scores);
+        courseName = getIntent().getStringExtra(Intent.EXTRA_TEXT);
+        if(!courseName.equals("Hole"))
+            holeNumber = Integer.parseInt(getIntent().getStringExtra("holeNumber"));
         setTitle("Enter Scores");
         ArrayList<String> names =  MyApplication.getDBHelper().getAllNames();
         TextView player1 = (TextView) findViewById(R.id.nameLabel1);
@@ -105,9 +109,19 @@ public class EnterScoresActivity extends AppCompatActivity {
        
         //player1.setText("1");//scores.get(0));
         //player2.setText("2");//scores.get(1));
+      if(courseName.equals("Hole")) {
+          Intent intent = new Intent(EnterScoresActivity.this, PlayMapsActivity.class);
+          EnterScoresActivity.this.startActivity(intent);
+      }
+        else{
+          Intent intent = new Intent(EnterScoresActivity.this, PlayCourseActivity.class);
+          holeNumber = Integer.parseInt(getIntent().getStringExtra("holeNumber"));
+          holeNumber++;
+          intent.putExtra("holeNumber", holeNumber+"");
 
-        Intent intent = new Intent(EnterScoresActivity.this, PlayMapsActivity.class);
-        EnterScoresActivity.this.startActivity(intent);
+          intent.putExtra(Intent.EXTRA_TEXT, courseName);
+          EnterScoresActivity.this.startActivity(intent);
+      }
 
     }
 

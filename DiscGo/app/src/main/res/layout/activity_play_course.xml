@@ -1,10 +1,10 @@
 <fragment xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:id="@+id/playMap" tools:context=".PlayMapsActivity"
+    android:layout_height="match_parent" android:id="@+id/playMap" tools:context=".PlayCourseActivity"
     android:name="com.google.android.gms.maps.SupportMapFragment">
 
     <Button
-        android:id="@+id/scoresButton"
+        android:id="@+id/scoresButtonCourse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|bottom"
@@ -17,17 +17,6 @@
         android:textAllCaps="false"/>
 
 
-    <Button
-        android:id="@+id/Courses"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|top"
-        android:layout_marginTop="20dp"
-        android:onClick="showCourses"
-        android:text="Courses"
-        android:textSize="25dp"
-        android:textColor="#B8B8B8"
-        android:background="#009933"
-        android:textAllCaps="false"/>
 
-    </fragment>
+</fragment>
+

@@ -1,5 +1,7 @@
 package cs4720.cs.virginia.edu.discgo;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -21,14 +23,17 @@ import com.parse.ParseQuery;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayMapsActivity extends FragmentActivity {
+public class PlayCourseActivity extends FragmentActivity {
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
-
+private String courseName;
+    private int holeNumber;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_playmaps);
+        setContentView(R.layout.activity_play_course);
+        courseName = getIntent().getStringExtra(Intent.EXTRA_TEXT);
+        holeNumber = Integer.parseInt(getIntent().getStringExtra("holeNumber"));
         setUpMapIfNeeded();
         loadMarkers();
     }
@@ -42,20 +47,17 @@ public class PlayMapsActivity extends FragmentActivity {
 
     @Override
     public void onBackPressed() {
-        Intent cameraIntent = new Intent(PlayMapsActivity.this, SplashScreen.class);
-        PlayMapsActivity.this.startActivity(cameraIntent);
+        Intent cameraIntent = new Intent(PlayCourseActivity.this, SplashScreen.class);
+        PlayCourseActivity.this.startActivity(cameraIntent);
     }
 
     public void showScores(View v) {
-        Intent intent = new Intent(PlayMapsActivity.this, DisplayScoreActivity.class);
-        intent.putExtra("course", "Hole");
-        PlayMapsActivity.this.startActivity(intent);
+        Intent intent = new Intent(PlayCourseActivity.this, DisplayScoreActivity.class);
+        intent.putExtra("course", courseName);
+        intent.putExtra("holeNumber", holeNumber + "");
+        PlayCourseActivity.this.startActivity(intent);
     }
 
-    public void showCourses(View v){
-        Intent intent = new Intent(PlayMapsActivity.this, ChooseCourseActivity.class);
-        PlayMapsActivity.this.startActivity(intent);
-    }
     private void setUpMapIfNeeded() {
         // Do a null check to confirm that we have not already instantiated the map.
         if (mMap == null) {
@@ -80,19 +82,40 @@ public class PlayMapsActivity extends FragmentActivity {
         mMap.setOnMarkerClickListener(markerClickListener);
     }
 
+   public void showCourseFinishedDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(PlayCourseActivity.this);
+        builder.setMessage("You've completed the course!");
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked OK button
+                Intent intent = new Intent(PlayCourseActivity.this, DisplayScoreActivity.class);
+                intent.putExtra("course", "Hole");
+
+                PlayCourseActivity.this.startActivity(intent);
+                dialog.dismiss();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
     public void loadMarkers() {
         //ArrayList<Hole> holes = MyApplication.getDBHelper().getAllHoles();
 
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Hole");
+        ParseQuery<ParseObject> query = ParseQuery.getQuery(courseName);
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> holes, ParseException e) {
                 if (e == null) {
-                    for(int i = 0; i < holes.size(); i++) {
-                        ParseGeoPoint point = holes.get(i).getParseGeoPoint("location");
-                        LatLng latLng = new LatLng(point.getLatitude(), point.getLongitude());
-                        mMap.addMarker(new MarkerOptions()
-                                .position(latLng)
-                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                    if (holeNumber > holes.size()) {
+                        showCourseFinishedDialog();
+                    }
+                    for (int i = 0; i < holes.size(); i++) {
+                        if (holes.get(i).getInt("order") == holeNumber) {
+                            ParseGeoPoint point = holes.get(i).getParseGeoPoint("location");
+                            LatLng latLng = new LatLng(point.getLatitude(), point.getLongitude());
+                            mMap.addMarker(new MarkerOptions()
+                                    .position(latLng)
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                        }
                     }
                 }
             }
@@ -116,7 +139,7 @@ public class PlayMapsActivity extends FragmentActivity {
 //                }
 //            }
 
-            ParseQuery<ParseObject> query = ParseQuery.getQuery("Hole");
+            ParseQuery<ParseObject> query = ParseQuery.getQuery(courseName);
             query.findInBackground(new FindCallback<ParseObject>() {
                 public void done(List<ParseObject> holes, ParseException e) {
                     if (e == null) {
@@ -124,10 +147,11 @@ public class PlayMapsActivity extends FragmentActivity {
                             ParseGeoPoint point = holes.get(i).getParseGeoPoint("location");
                             if (point.getLatitude() == marker.getPosition().latitude && point.getLongitude() == marker.getPosition().longitude) {
                                 String objectId = holes.get(i).getObjectId();
-                                Intent intent = new Intent(PlayMapsActivity.this, PlayHoleActivity.class);
+                                Intent intent = new Intent(PlayCourseActivity.this, PlayHoleActivity.class);
                                 intent.putExtra(Intent.EXTRA_TEXT, objectId);
-                                intent.putExtra("course", "Hole");
-                                PlayMapsActivity.this.startActivity(intent);
+                                intent.putExtra("course", courseName);
+                                intent.putExtra("holeNumber", holeNumber+"");
+                                PlayCourseActivity.this.startActivity(intent);
                                 break;
                             }
                         }
