@@ -129,14 +129,14 @@ public class CreateHoleActivity extends AppCompatActivity {
             par = Integer.parseInt(String.valueOf(parText.getText()));
         }
 
-        Hole h = new Hole();
-        h.setName(holeName);
-        h.setLatitude(latitude);
-        h.setLongitude(longitude);
-        h.setPar(par);
-        h.setStartingPointUri(starting_path);
-        h.setEndingPointUri(ending_path);
-        h.save();
+//        Hole h = new Hole();
+//        h.setName(holeName);
+//        h.setLatitude(latitude);
+//        h.setLongitude(longitude);
+//        h.setPar(par);
+//        h.setStartingPointUri(starting_path);
+//        h.setEndingPointUri(ending_path);
+//        h.save();
 
         ParseObject hole = new ParseObject("Hole");
         hole.put("holeName", holeName);
@@ -178,14 +178,6 @@ public class CreateHoleActivity extends AppCompatActivity {
 
         hole.saveInBackground();
 
-//        ArrayList<Hole> holes = MyApplication.getDBHelper().getAllHoles();
-//        String holeNames = "";
-//        for(int i = 0; i < holes.size(); i++) {
-//            holeNames += holes.get(i).getLatitude() + ", " + holes.get(i).getLongitude() + "; ";
-//        }
-
-//        Toast toast = Toast.makeText(getApplicationContext(), "Coord " + holeNames, Toast.LENGTH_SHORT);
-//        toast.show();
         saved = true;
         finish();
     }

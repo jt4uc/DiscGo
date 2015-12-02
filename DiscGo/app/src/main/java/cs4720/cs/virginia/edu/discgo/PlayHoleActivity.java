@@ -40,7 +40,6 @@ public class PlayHoleActivity extends AppCompatActivity {
     //private Hole hole;
     private ParseObject hole;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +77,7 @@ public class PlayHoleActivity extends AppCompatActivity {
                                             setPic();
                                         } else {
                                             ending_path = mCurrentPhotoPath;
-                                            imageView = (ImageView) findViewById(R.id.secondpic);
+                                            imageView = (ImageView) findViewById(R.id.secondpic );
                                             setPic();
                                         }
                                     } catch (FileNotFoundException e1) {

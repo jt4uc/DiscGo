@@ -72,13 +72,13 @@ public class Hole {
 
 
 
-    public void save() {
-        MyApplication.getDBHelper().saveHole(this);
-    }
-
-    public void delete() {
-        MyApplication.getDBHelper().deleteHole(id);
-    }
+//    public void save() {
+//        MyApplication.getDBHelper().saveHole(this);
+//    }
+//
+//    public void delete() {
+//        MyApplication.getDBHelper().deleteHole(id);
+//    }
 
 //    public Hole getHoleById() {
 //        return MyApplication.getDBHelper().getHoleById(id);

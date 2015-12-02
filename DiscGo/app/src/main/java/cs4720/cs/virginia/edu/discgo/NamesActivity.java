@@ -3,12 +3,17 @@ package cs4720.cs.virginia.edu.discgo;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+import com.parse.ParseException;
 import com.parse.ParseObject;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class NamesActivity extends AppCompatActivity {
 
@@ -47,7 +52,10 @@ public class NamesActivity extends AppCompatActivity {
         NamesActivity.this.startActivity(cameraIntent);
     }
 
-    public void saveName(View view){
+    public void saveName(View view) {
+
+        ParseObject game = new ParseObject("Game");
+        ArrayList<String> names = new ArrayList<String>();
 
         EditText player1Text = (EditText) findViewById(R.id.name1);
         EditText player2Text = (EditText) findViewById(R.id.name2);
@@ -55,22 +63,34 @@ public class NamesActivity extends AppCompatActivity {
         EditText player4Text = (EditText) findViewById(R.id.name4);
         EditText player5Text = (EditText) findViewById(R.id.name5);
         EditText player6Text = (EditText) findViewById(R.id.name6);
+//        if(!String.valueOf(player1Text.getText()).equals(""))
+//           MyApplication.getDBHelper().saveName(String.valueOf(player1Text.getText()));
         if(!String.valueOf(player1Text.getText()).equals(""))
-           MyApplication.getDBHelper().saveName(String.valueOf(player1Text.getText()));
+            names.add(String.valueOf(player1Text.getText()));
         if(!String.valueOf(player2Text.getText()).equals(""))
-            MyApplication.getDBHelper().saveName(String.valueOf(player2Text.getText()));
+            names.add(String.valueOf(player2Text.getText()));
         if(!String.valueOf(player3Text.getText()).equals(""))
-            MyApplication.getDBHelper().saveName(String.valueOf(player3Text.getText()));
+            names.add(String.valueOf(player3Text.getText()));
         if(!String.valueOf(player4Text.getText()).equals(""))
-            MyApplication.getDBHelper().saveName(String.valueOf(player4Text.getText()));
+            names.add(String.valueOf(player4Text.getText()));
         if(!String.valueOf(player5Text.getText()).equals(""))
-            MyApplication.getDBHelper().saveName(String.valueOf(player5Text.getText()));
+            names.add(String.valueOf(player5Text.getText()));
         if(!String.valueOf(player6Text.getText()).equals(""))
-            MyApplication.getDBHelper().saveName(String.valueOf(player6Text.getText()));
-        MyApplication.getDBHelper().resetScore();
+            names.add(String.valueOf(player6Text.getText()));
+        //MyApplication.getDBHelper().resetScore();
+
+        game.addAll("names", names);
+        //game.saveInBackground(); // performed on a separate thread
+        try {
+            game.save();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        String objectId = game.getObjectId();
+        MyApplication.setGameId(objectId);
         Intent intent = new Intent(NamesActivity.this, PlayMapsActivity.class);
+        //intent.putExtra(Intent.EXTRA_TEXT, objectId);
         NamesActivity.this.startActivity(intent);
-
-
     }
 }
