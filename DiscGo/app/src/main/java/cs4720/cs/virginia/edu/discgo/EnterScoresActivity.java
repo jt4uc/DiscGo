@@ -21,7 +21,6 @@ import java.util.List;
 
 public class EnterScoresActivity extends AppCompatActivity {
 
-    private ParseObject game;
     private ArrayList<String> players;
 
     @Override
@@ -30,7 +29,6 @@ public class EnterScoresActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_enter_scores);
         setTitle("Enter Scores");
-        //ArrayList<String> names =  MyApplication.getDBHelper().getAllNames();
         final ArrayList<String> names = new ArrayList<String>();
         players = MyApplication.getPlayerIds();
 
@@ -84,15 +82,6 @@ public class EnterScoresActivity extends AppCompatActivity {
         for (int i = 0; i < players.size(); i++) {
             addScores(players.get(i), scores[i]);
         }
-
-
-        // Toast.makeText(getApplicationContext(), s2, Toast.LENGTH_SHORT).show();
-//        MyApplication.getDBHelper().saveScore(s1, s2, s3, s4, s5, s6);
-//
-//        ArrayList<Integer> scores = MyApplication.getDBHelper().getAllScores();
-       
-        //player1.setText("1");//scores.get(0));
-        //player2.setText("2");//scores.get(1));
 
         Intent intent = new Intent(EnterScoresActivity.this, PlayMapsActivity.class);
         EnterScoresActivity.this.startActivity(intent);

@@ -8,16 +8,12 @@ import java.util.ArrayList;
 
 public class MyApplication extends Application {
 
-    //private static DBHelper databaseHelper;
     private static String gameId;
     private static ArrayList<String> playerIds;
 
     @Override
     public void onCreate(){
         super.onCreate();
-//        if (databaseHelper == null) {
-//            this.databaseHelper = new DBHelper(this);
-//        }
 
         playerIds = new ArrayList<String>();
 
@@ -26,10 +22,6 @@ public class MyApplication extends Application {
         Parse.initialize(this, "nZBOqTUWl6JHqSRUQnLkEnJCxHf8agq6tuQ01M7b", "tqO47wZpOLJN7XOl46V9KT2wov7FKooMDgASJEzu");
 
     }
-
-//    public static DBHelper getDBHelper() {
-//        return databaseHelper;
-//    }
 
     public static String getGameId() {
         return gameId;

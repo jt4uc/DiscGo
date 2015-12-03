@@ -129,15 +129,6 @@ public class CreateHoleActivity extends AppCompatActivity {
             par = Integer.parseInt(String.valueOf(parText.getText()));
         }
 
-//        Hole h = new Hole();
-//        h.setName(holeName);
-//        h.setLatitude(latitude);
-//        h.setLongitude(longitude);
-//        h.setPar(par);
-//        h.setStartingPointUri(starting_path);
-//        h.setEndingPointUri(ending_path);
-//        h.save();
-
         ParseObject hole = new ParseObject("Hole");
         hole.put("holeName", holeName);
         hole.put("par", par);

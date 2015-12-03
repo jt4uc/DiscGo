@@ -63,8 +63,6 @@ public class NamesActivity extends AppCompatActivity {
         EditText player4Text = (EditText) findViewById(R.id.name4);
         EditText player5Text = (EditText) findViewById(R.id.name5);
         EditText player6Text = (EditText) findViewById(R.id.name6);
-//        if(!String.valueOf(player1Text.getText()).equals(""))
-//           MyApplication.getDBHelper().saveName(String.valueOf(player1Text.getText()));
 
         ArrayList<EditText> editTexts = new ArrayList<EditText>();
         editTexts.add(player1Text);
@@ -88,25 +86,8 @@ public class NamesActivity extends AppCompatActivity {
             }
         }
 
-//        if(!String.valueOf(player1Text.getText()).equals("")) {
-//
-//        }
-//            names.add(String.valueOf(player1Text.getText()));
-//        if(!String.valueOf(player2Text.getText()).equals(""))
-//            names.add(String.valueOf(player2Text.getText()));
-//        if(!String.valueOf(player3Text.getText()).equals(""))
-//            names.add(String.valueOf(player3Text.getText()));
-//        if(!String.valueOf(player4Text.getText()).equals(""))
-//            names.add(String.valueOf(player4Text.getText()));
-//        if(!String.valueOf(player5Text.getText()).equals(""))
-//            names.add(String.valueOf(player5Text.getText()));
-//        if(!String.valueOf(player6Text.getText()).equals(""))
-//            names.add(String.valueOf(player6Text.getText()));
-        //MyApplication.getDBHelper().resetScore();
-
         game.addAll("players", playerObjectIds);
         MyApplication.setPlayerIds(playerObjectIds);
-        //game.saveInBackground(); // performed on a separate thread
         try {
             game.save();
         } catch (ParseException e) {
@@ -116,7 +97,6 @@ public class NamesActivity extends AppCompatActivity {
         String objectId = game.getObjectId();
         MyApplication.setGameId(objectId);
         Intent intent = new Intent(NamesActivity.this, PlayMapsActivity.class);
-        //intent.putExtra(Intent.EXTRA_TEXT, objectId);
         NamesActivity.this.startActivity(intent);
     }
 }

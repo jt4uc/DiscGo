@@ -76,7 +76,6 @@ public class PlayMapsActivity extends FragmentActivity {
     }
 
     public void loadMarkers() {
-        //ArrayList<Hole> holes = MyApplication.getDBHelper().getAllHoles();
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Hole");
         query.findInBackground(new FindCallback<ParseObject>() {
@@ -100,16 +99,6 @@ public class PlayMapsActivity extends FragmentActivity {
     private GoogleMap.OnMarkerClickListener markerClickListener = new GoogleMap.OnMarkerClickListener() {
         @Override
         public boolean onMarkerClick(final Marker marker) {
-//            ArrayList<Hole> holes = MyApplication.getDBHelper().getAllHoles();
-//            String holeName = "";
-//            int holeId = -1;
-//            for(int i = 0; i < holes.size(); i++) {
-//                if (holes.get(i).getLatitude() == marker.getPosition().latitude && holes.get(i).getLongitude() == marker.getPosition().longitude) {
-//                    holeName = holes.get(i).getName();
-//                    holeId = holes.get(i).getId();
-//                    break;
-//                }
-//            }
 
             ParseQuery<ParseObject> query = ParseQuery.getQuery("Hole");
             query.findInBackground(new FindCallback<ParseObject>() {
@@ -128,14 +117,6 @@ public class PlayMapsActivity extends FragmentActivity {
                     }
                 }
             });
-
-
-
-//            Intent intent = new Intent(PlayMapsActivity.this, PlayHoleActivity.class);
-//            intent.putExtra(Intent.EXTRA_TEXT, "blah");
-            //intent.putExtra(Intent.EXTRA_TEXT, holeName);
-            //intent.putExtra("ID", "" + holeId);
-            //PlayMapsActivity.this.startActivity(intent);
 
             return false; // does the default behavior - shows info window and centers marker on map
         }

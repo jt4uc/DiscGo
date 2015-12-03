@@ -32,12 +32,10 @@ public class PlayHoleActivity extends AppCompatActivity {
     ImageView imageView;
 
     private int par = 0;
-    private int holeId;
     private String holeName = "";
     private String starting_path = "";
     private String ending_path = "";
 
-    //private Hole hole;
     private ParseObject hole;
 
     @Override
@@ -93,14 +91,6 @@ public class PlayHoleActivity extends AppCompatActivity {
                 }
             }
         });
-
-//        holeName = getIntent().getStringExtra(Intent.EXTRA_TEXT);
-//        setTitle(holeName);
-//        holeId = Integer.parseInt(getIntent().getStringExtra("ID"));
-//        hole = MyApplication.getDBHelper().getHoleById(holeId);
-//        setContentView(R.layout.activity_playhole);
-//        TextView parText = (TextView) findViewById(R.id.playpartext);
-//        parText.setText("Par: " + hole.getPar());
     }
 
     @Override
@@ -116,15 +106,6 @@ public class PlayHoleActivity extends AppCompatActivity {
             imageView = (ImageView) findViewById(R.id.secondpic);
             setPic();
         }
-
-
-//            mCurrentPhotoPath = hole.getStartingPointUri();
-//            imageView = (ImageView) findViewById(R.id.firstpic);
-//            setPic();
-//
-//            mCurrentPhotoPath = hole.getEndingPointUri();
-//            imageView = (ImageView) findViewById(R.id.secondpic);
-//            setPic();
 
     }
 
