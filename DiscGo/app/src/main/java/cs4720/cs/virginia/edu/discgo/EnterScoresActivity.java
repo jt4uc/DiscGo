@@ -22,23 +22,28 @@ import java.util.List;
 public class EnterScoresActivity extends AppCompatActivity {
 
     private ArrayList<String> players;
+    private String courseName;
+    private int holeNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_enter_scores);
+        courseName = getIntent().getStringExtra(Intent.EXTRA_TEXT);
+        if (!courseName.equals("Hole"))
+            holeNumber = Integer.parseInt(getIntent().getStringExtra("holeNumber"));
         setTitle("Enter Scores");
         final ArrayList<String> names = new ArrayList<String>();
         players = MyApplication.getPlayerIds();
 
-        for(String p : players) {
+        for (String p : players) {
             names.add(queryPlayerName(p));
         }
         changeTexts(names);
     }
 
-    public void save(View v){
+    public void save(View v) {
         int s1;
         int s2;
         int s3;
@@ -52,39 +57,47 @@ public class EnterScoresActivity extends AppCompatActivity {
         EditText player4Text = (EditText) findViewById(R.id.enter4);
         EditText player5Text = (EditText) findViewById(R.id.enter5);
         EditText player6Text = (EditText) findViewById(R.id.enter6);
-        if(String.valueOf(player1Text.getText()).equals(""))
-            s1=-1;
+        if (String.valueOf(player1Text.getText()).equals(""))
+            s1 = -1;
         else
             s1 = Integer.parseInt(String.valueOf(player1Text.getText()));
-        if(String.valueOf(player2Text.getText()).equals(""))
-            s2=-1;
+        if (String.valueOf(player2Text.getText()).equals(""))
+            s2 = -1;
         else
             s2 = Integer.parseInt(String.valueOf(player2Text.getText()));
-        if(String.valueOf(player3Text.getText()).equals(""))
-            s3=-1;
+        if (String.valueOf(player3Text.getText()).equals(""))
+            s3 = -1;
         else
             s3 = Integer.parseInt(String.valueOf(player3Text.getText()));
-        if(String.valueOf(player4Text.getText()).equals(""))
-            s4=-1;
+        if (String.valueOf(player4Text.getText()).equals(""))
+            s4 = -1;
         else
             s4 = Integer.parseInt(String.valueOf(player4Text.getText()));
-        if(String.valueOf(player5Text.getText()).equals(""))
-            s5=-1;
+        if (String.valueOf(player5Text.getText()).equals(""))
+            s5 = -1;
         else
             s5 = Integer.parseInt(String.valueOf(player5Text.getText()));
-        if(String.valueOf(player6Text.getText()).equals(""))
-            s6=-1;
+        if (String.valueOf(player6Text.getText()).equals(""))
+            s6 = -1;
         else
             s6 = Integer.parseInt(String.valueOf(player6Text.getText()));
 
         int[] scores = new int[]{s1, s2, s3, s4, s5, s6};
-
         for (int i = 0; i < players.size(); i++) {
             addScores(players.get(i), scores[i]);
         }
 
-        Intent intent = new Intent(EnterScoresActivity.this, PlayMapsActivity.class);
-        EnterScoresActivity.this.startActivity(intent);
+        if (courseName.equals("Hole")) {
+            Intent intent = new Intent(EnterScoresActivity.this, PlayMapsActivity.class);
+            EnterScoresActivity.this.startActivity(intent);
+        } else {
+            Intent intent = new Intent(EnterScoresActivity.this, PlayCourseActivity.class);
+            holeNumber = Integer.parseInt(getIntent().getStringExtra("holeNumber"));
+            holeNumber++;
+            intent.putExtra("holeNumber", holeNumber + "");
+            intent.putExtra(Intent.EXTRA_TEXT, courseName);
+            EnterScoresActivity.this.startActivity(intent);
+        }
 
     }
 
@@ -101,30 +114,30 @@ public class EnterScoresActivity extends AppCompatActivity {
         TextView player6 = (TextView) findViewById(R.id.nameLabel6);
         EditText player6Text = (EditText) findViewById(R.id.enter6);
         player1.setText(names.get(0));
-        if(names.size()<2) {
+        if (names.size() < 2) {
             player2.setVisibility(View.INVISIBLE);
             player2Text.setVisibility(View.INVISIBLE);
-        }else
+        } else
             player2.setText(names.get(1));
-        if(names.size()<3) {
+        if (names.size() < 3) {
             player3.setVisibility(View.INVISIBLE);
             player3Text.setVisibility(View.INVISIBLE);
-        }else
+        } else
             player3.setText(names.get(2));
-        if(names.size() < 4) {
+        if (names.size() < 4) {
             player4.setVisibility(View.INVISIBLE);
             player4Text.setVisibility(View.INVISIBLE);
-        }else
+        } else
             player4.setText(names.get(3));
-        if(names.size()<5) {
+        if (names.size() < 5) {
             player5.setVisibility(View.INVISIBLE);
             player5Text.setVisibility(View.INVISIBLE);
-        }else
+        } else
             player5.setText(names.get(4));
-        if(names.size() <6) {
+        if (names.size() < 6) {
             player6.setVisibility(View.INVISIBLE);
             player6Text.setVisibility(View.INVISIBLE);
-        }else
+        } else
             player6.setText(names.get(5));
     }
 

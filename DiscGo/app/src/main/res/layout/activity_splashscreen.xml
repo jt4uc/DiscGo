@@ -36,11 +36,11 @@
         android:textAllCaps="false" />
 
     <Button
-        android:id="@+id/createCourse"
+        android:id="@+id/createHole"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:onClick="createCourse"
+        android:onClick="createHole"
         android:layout_marginTop="50dp"
         android:text=" Create Holes "
         android:textColor="#009933"
@@ -48,5 +48,16 @@
         android:textAllCaps="false"
         android:textSize="25dp" />
 
-
+    <Button
+        android:id="@+id/createCourse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:onClick="createCourse"
+        android:layout_marginTop="50dp"
+        android:text=" Create Course "
+        android:textColor="#009933"
+        android:background="#B8B8B8"
+        android:textAllCaps="false"
+        android:textSize="25dp" />
 </LinearLayout>

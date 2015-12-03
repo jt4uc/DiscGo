@@ -24,6 +24,9 @@ public class DisplayScoreActivity extends AppCompatActivity {
     private ArrayList<TextView> playerTextViews;
     private ArrayList<int[]> scoresList;
 
+    private String courseName;
+    private int holeNumber;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,14 +61,27 @@ public class DisplayScoreActivity extends AppCompatActivity {
                 scoresList.add(queryScores(playerIds.get(i)));
             }
         }
-
         displayTotals();
+
+        courseName = getIntent().getStringExtra("course");
+        if(!courseName.equals( "Hole"))
+            holeNumber = Integer.parseInt(getIntent().getStringExtra("holeNumber"));
     }
 
     @Override
     public void onBackPressed() {
-        Intent cameraIntent = new Intent(DisplayScoreActivity.this, PlayMapsActivity.class);
-        DisplayScoreActivity.this.startActivity(cameraIntent);
+        if(courseName.equals("Hole")) {
+            Intent intent = new Intent(DisplayScoreActivity.this, PlayMapsActivity.class);
+            DisplayScoreActivity.this.startActivity(intent);
+        }
+        else{
+            Intent intent = new Intent(DisplayScoreActivity.this, PlayCourseActivity.class);
+            intent.putExtra(Intent.EXTRA_TEXT, courseName);
+          //  holeNumber = Integer.parseInt(getIntent().getStringExtra("holeNumber"));
+            intent.putExtra("holeNumber", holeNumber+"");
+            DisplayScoreActivity.this.startActivity(intent);
+        }
+
     }
 
     public void next(View view){
@@ -134,5 +150,19 @@ public class DisplayScoreActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return null;
+    }
+    public void done(View v ){
+        if(courseName.equals("Hole")) {
+            Intent intent = new Intent(DisplayScoreActivity.this, PlayMapsActivity.class);
+            DisplayScoreActivity.this.startActivity(intent);
+        }
+        else{
+            Intent intent = new Intent(DisplayScoreActivity.this, PlayCourseActivity.class);
+            intent.putExtra(Intent.EXTRA_TEXT, courseName);
+            //  holeNumber = Integer.parseInt(getIntent().getStringExtra("holeNumber"));
+            intent.putExtra("holeNumber", holeNumber+"");
+            DisplayScoreActivity.this.startActivity(intent);
+        }
+
     }
 }

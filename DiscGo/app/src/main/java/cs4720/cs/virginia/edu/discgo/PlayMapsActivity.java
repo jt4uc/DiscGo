@@ -48,9 +48,14 @@ public class PlayMapsActivity extends FragmentActivity {
 
     public void showScores(View v) {
         Intent intent = new Intent(PlayMapsActivity.this, DisplayScoreActivity.class);
+        intent.putExtra("course", "Hole");
         PlayMapsActivity.this.startActivity(intent);
     }
 
+    public void showCourses(View v){
+        Intent intent = new Intent(PlayMapsActivity.this, ChooseCourseActivity.class);
+        PlayMapsActivity.this.startActivity(intent);
+    }
     private void setUpMapIfNeeded() {
         // Do a null check to confirm that we have not already instantiated the map.
         if (mMap == null) {
@@ -110,6 +115,7 @@ public class PlayMapsActivity extends FragmentActivity {
                                 String objectId = holes.get(i).getObjectId();
                                 Intent intent = new Intent(PlayMapsActivity.this, PlayHoleActivity.class);
                                 intent.putExtra(Intent.EXTRA_TEXT, objectId);
+                                intent.putExtra("course", "Hole");
                                 PlayMapsActivity.this.startActivity(intent);
                                 break;
                             }

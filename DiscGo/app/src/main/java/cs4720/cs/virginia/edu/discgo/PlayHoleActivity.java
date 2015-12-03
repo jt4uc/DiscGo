@@ -38,12 +38,19 @@ public class PlayHoleActivity extends AppCompatActivity {
 
     private ParseObject hole;
 
+    private String courseName;
+    private int holeNumber;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         String objectId = getIntent().getStringExtra(Intent.EXTRA_TEXT);
+        courseName = getIntent().getStringExtra("course");
+        if(!courseName.equals("Hole"))
+            holeNumber = Integer.parseInt(getIntent().getStringExtra("holeNumber"));
+        ParseQuery<ParseObject> query = ParseQuery.getQuery(courseName);
 
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Hole");
+
         query.getInBackground(objectId, new GetCallback<ParseObject>() {
             public void done(ParseObject object, ParseException e) {
                 if (e == null) {
@@ -111,15 +118,36 @@ public class PlayHoleActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent cameraIntent = new Intent(PlayHoleActivity.this, PlayMapsActivity.class);
-        PlayHoleActivity.this.startActivity(cameraIntent);
+        if(!courseName.equals( "Hole")) {
+            Intent enterIntent = new Intent(PlayHoleActivity.this, PlayCourseActivity.class);
+            enterIntent.putExtra(Intent.EXTRA_TEXT, courseName);
+            holeNumber = Integer.parseInt(getIntent().getStringExtra("holeNumber"));
+            enterIntent.putExtra("holeNumber", holeNumber + "");
+
+            PlayHoleActivity.this.startActivity(enterIntent);
+        }
+        else {
+            Intent cameraIntent = new Intent(PlayHoleActivity.this, PlayMapsActivity.class);
+            PlayHoleActivity.this.startActivity(cameraIntent);
+        }
     }
 
     public void enterScore(View v) {
 
-        Intent enterIntent = new Intent(PlayHoleActivity.this, EnterScoresActivity.class);
-        PlayHoleActivity.this.startActivity(enterIntent);
+        if(!courseName.equals( "Hole")) {
+            Intent enterIntent = new Intent(PlayHoleActivity.this, EnterScoresActivity.class);
+            enterIntent.putExtra(Intent.EXTRA_TEXT, courseName);
+            holeNumber = Integer.parseInt(getIntent().getStringExtra("holeNumber"));
+            enterIntent.putExtra("holeNumber", holeNumber + "");
 
+            PlayHoleActivity.this.startActivity(enterIntent);
+        }
+        else{
+            Intent enterIntent = new Intent(PlayHoleActivity.this, EnterScoresActivity.class);
+            enterIntent.putExtra(Intent.EXTRA_TEXT, courseName);
+
+            PlayHoleActivity.this.startActivity(enterIntent);
+        }
     }
 
     private void createImageFile() throws IOException {
