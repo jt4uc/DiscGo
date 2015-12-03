@@ -43,6 +43,7 @@ public class CreateCourseActivity extends FragmentActivity {
 
         setUpMapIfNeeded();
         if(count == -1){
+            count++;
         AlertDialog.Builder builder = new AlertDialog.Builder(CreateCourseActivity.this);
         builder.setMessage("Name your course");
         final EditText editText = new EditText(getApplicationContext());

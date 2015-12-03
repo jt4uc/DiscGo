@@ -47,7 +47,6 @@ public class ViewHolesActivity extends AppCompatActivity {
 
 
     public void makeList() {
-        Toast.makeText(getApplicationContext(), "make LSit", Toast.LENGTH_SHORT).show();
         ParseQuery<ParseObject> query = ParseQuery.getQuery(courseName);
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> holes, ParseException e) {
