@@ -37,10 +37,13 @@ public class CreateCourseActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_course);
-        count = 0;
+        count = Integer.parseInt(getIntent().getStringExtra("numberOfHoles"));
 
 //        courseName = getIntent().getStringExtra(Intent.EXTRA_TEXT);
-         AlertDialog.Builder builder = new AlertDialog.Builder(CreateCourseActivity.this);
+
+        setUpMapIfNeeded();
+        if(count == -1){
+        AlertDialog.Builder builder = new AlertDialog.Builder(CreateCourseActivity.this);
         builder.setMessage("Name your course");
         final EditText editText = new EditText(getApplicationContext());
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
@@ -50,30 +53,33 @@ public class CreateCourseActivity extends FragmentActivity {
         editText.setTextColor(Color.BLACK); // so the cursor is white... lolol let's not fix it now ;)
 
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                         // User clicked OK button
-                   //        Toast.makeText(this.CreateCourseActivity, "second", Toast.LENGTH_SHORT).show();
-                         courseName = String.valueOf(editText.getText());
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked OK button
+                //        Toast.makeText(this.CreateCourseActivity, "second", Toast.LENGTH_SHORT).show();
+                courseName = String.valueOf(editText.getText());
 
-                         ParseObject course = new ParseObject("Courses");
-                         course.put("courseName", courseName);
-                        course.saveInBackground();
+                ParseObject course = new ParseObject("Courses");
+                course.put("courseName", courseName);
+                course.saveInBackground();
 
-                     }
-                 });
-                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                     public void onClick(DialogInterface dialog, int id) {
-                         // User cancelled the dialog
-                         Intent cameraIntent = new Intent(CreateCourseActivity.this, SplashScreen.class);
-                         CreateCourseActivity.this.startActivity(cameraIntent);
-                         dialog.dismiss();
-                     }
-                 });
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User cancelled the dialog
+                Intent cameraIntent = new Intent(CreateCourseActivity.this, SplashScreen.class);
+                CreateCourseActivity.this.startActivity(cameraIntent);
+                dialog.dismiss();
+            }
+        });
         builder.setView(editText);
         AlertDialog dialog = builder.create();
         dialog.show();
-        setUpMapIfNeeded();
         loadMarkers();
+        }
+        else{
+            courseName = getIntent().getStringExtra("courseName");
+        }
     }
 
     @Override

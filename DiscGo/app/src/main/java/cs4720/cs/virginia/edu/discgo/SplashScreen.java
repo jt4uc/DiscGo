@@ -67,6 +67,7 @@ public class SplashScreen extends Activity {
        // ParseObject course = new ParseObject("Courses");
         //course.put("courseName", "test");
         Intent intent = new Intent(SplashScreen.this, CreateCourseActivity.class);
+        intent.putExtra("numberOfHoles", "-1");
         SplashScreen.this.startActivity(intent);
 
     }
