@@ -68,8 +68,13 @@ public class DisplayScoreActivity extends AppCompatActivity {
             }
         }
         if (scoresList == null) {
-            for (TextView tv : playerTextViews) {
-                tv.setText("0");
+            for (int i = 0; i < MyApplication.getPlayerIds().size(); i++) {
+                playerTextViews.get(i).setText("0");
+                nameTextViews.get(i).setText(queryPlayerName(playerIds.get(i)));
+            }
+            for (int j = MyApplication.getPlayerIds().size(); j < 6; j++) {
+                playerTextViews.get(j).setVisibility(View.INVISIBLE);
+                nameTextViews.get(j).setVisibility(View.INVISIBLE);
             }
         } else {
             displayTotals();
