@@ -1,149 +1,292 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"-->
+    <!--android:paddingRight="@dimen/activity_horizontal_margin"-->
+    <!--android:paddingTop="@dimen/activity_vertical_margin"-->
+    <!--android:paddingBottom="@dimen/activity_vertical_margin"-->
+    <!--android:background="#85E085"-->
+    <!--tools:context="cs4720.cs.virginia.edu.discgo.NamesActivity">-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:layout_height="match_parent"
+    android:orientation="vertical" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:background="#85E085"
     tools:context="cs4720.cs.virginia.edu.discgo.NamesActivity">
 
-    <EditText
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/name1"
-        android:textSize="35dp"
-        android:minWidth="100dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/name2"
-        android:layout_alignStart="@+id/name2" />
+        android:orientation="horizontal"
+        android:layout_marginLeft="75dp"
+        android:layout_marginTop="40dp">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/name2"
-        android:textSize="35dp"
-        android:minWidth="100dp"
-        android:layout_below="@+id/name1"
-        android:layout_marginTop="15dp"
-        android:layout_alignRight="@+id/button5"
-        android:layout_alignEnd="@+id/button5" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Player 1"
+            android:id="@+id/PlayerText1"
+            android:textSize="35dp"/>
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/name3"
-        android:minWidth="100dp"
-        android:layout_below="@+id/name2"
-        android:layout_marginTop="15dp"
-        android:textSize="35dp"
-        android:layout_alignRight="@+id/button5"
-        android:layout_alignEnd="@+id/button5" />
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/name1"
+            android:hint="Enter Name"
+            android:textSize="35dp"
+            android:minWidth="200dp"
+            android:layout_marginLeft="100dp"/>
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/name4"
-        android:textSize="35dp"
-        android:minWidth="100dp"
-        android:layout_below="@+id/name3"
-        android:layout_marginTop="15dp"
-        android:layout_alignRight="@+id/button5"
-        android:layout_alignEnd="@+id/button5" />
+    </LinearLayout>
 
-    <EditText
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/name5"
-        android:textSize="35dp"
-        android:minWidth="100dp"
-        android:layout_below="@+id/name4"
-        android:layout_marginTop="15dp"
-        android:layout_alignRight="@+id/button5"
-        android:layout_alignEnd="@+id/button5" />
+        android:orientation="horizontal"
+        android:layout_marginLeft="75dp">
 
-    <EditText
-        android:layout_width="wrap_content"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Player 2"
+            android:id="@+id/PlayerText2"
+            android:textSize="35dp"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/name2"
+            android:textSize="35dp"
+            android:minWidth="200dp"
+            android:layout_marginLeft="100dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/name6"
-        android:textSize="35dp"
-        android:minWidth="100dp"
-        android:layout_below="@+id/name5"
-        android:layout_marginTop="15dp"
-        android:layout_alignRight="@+id/button5"
-        android:layout_alignEnd="@+id/button5" />
+        android:orientation="horizontal"
+        android:layout_marginLeft="75dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Player 3"
+            android:id="@+id/PlayerText3"
+            android:textSize="35dp"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/name3"
+            android:textSize="35dp"
+            android:minWidth="200dp"
+            android:layout_marginLeft="100dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="75dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Player 4"
+            android:id="@+id/PlayerText4"
+            android:textSize="35dp"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/name4"
+            android:textSize="35dp"
+            android:minWidth="200dp"
+            android:layout_marginLeft="100dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="75dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Player 5"
+            android:id="@+id/PlayerText5"
+            android:textSize="35dp"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/name5"
+            android:textSize="35dp"
+            android:minWidth="200dp"
+            android:layout_marginLeft="100dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="75dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Player 6"
+            android:id="@+id/PlayerText6"
+            android:textSize="35dp"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/name6"
+            android:textSize="35dp"
+            android:minWidth="200dp"
+            android:layout_marginLeft="100dp"/>
+
+    </LinearLayout>
+
+
+    <!--<EditText-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/name1"-->
+        <!--android:textSize="35dp"-->
+        <!--android:minWidth="100dp"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_alignLeft="@+id/name2"-->
+        <!--android:layout_alignStart="@+id/name2"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:layout_marginBottom="-5dp"/>-->
+
+    <!--<EditText-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/name2"-->
+        <!--android:textSize="35dp"-->
+        <!--android:minWidth="100dp"-->
+        <!--android:layout_below="@+id/name1"-->
+        <!--android:layout_marginTop="15dp"-->
+        <!--android:layout_marginLeft="250dp"/>-->
+
+    <!--<EditText-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/name3"-->
+        <!--android:minWidth="100dp"-->
+        <!--android:layout_below="@+id/name2"-->
+        <!--android:layout_marginTop="15dp"-->
+        <!--android:textSize="35dp" />-->
+
+    <!--<EditText-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/name4"-->
+        <!--android:textSize="35dp"-->
+        <!--android:minWidth="100dp"-->
+        <!--android:layout_below="@+id/name3"-->
+        <!--android:layout_marginTop="15dp" />-->
+
+    <!--<EditText-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/name5"-->
+        <!--android:textSize="35dp"-->
+        <!--android:minWidth="100dp"-->
+        <!--android:layout_below="@+id/name4"-->
+        <!--android:layout_marginTop="15dp" />-->
+
+    <!--<EditText-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/name6"-->
+        <!--android:textSize="35dp"-->
+        <!--android:minWidth="100dp"-->
+        <!--android:layout_below="@+id/name5"-->
+        <!--android:layout_marginTop="15dp"/>-->
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Save"
+        android:text="Play"
         android:id="@+id/button5"
         android:onClick="saveName"
         android:textSize="35dp"
         android:textColor="#009933"
         android:background="#B8B8B8"
         android:textAllCaps="false"
-        android:layout_marginBottom="35dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_marginTop="275dp"
+        android:layout_gravity="center_horizontal"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Player One"
-        android:id="@+id/PlayerText1"
-        android:textSize="35dp"
-        android:layout_alignBottom="@+id/name1"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Player One"-->
+        <!--android:id="@+id/PlayerText1"-->
+        <!--android:textSize="35dp"-->
+        <!--android:layout_alignBottom="@+id/name1"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentStart="true"/>-->
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Player Two"
-        android:id="@+id/PlayerText2"
-        android:textSize="35dp"
-        android:layout_alignBottom="@+id/name2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Player Two"-->
+        <!--android:id="@+id/PlayerText2"-->
+        <!--android:textSize="35dp"-->
+        <!--android:layout_alignBottom="@+id/name2"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentStart="true" />-->
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Player Three"
-        android:id="@+id/PlayerText3"
-        android:textSize="35dp"
-        android:layout_alignBottom="@+id/name3"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Player Three"-->
+        <!--android:id="@+id/PlayerText3"-->
+        <!--android:textSize="35dp"-->
+        <!--android:layout_alignBottom="@+id/name3"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentStart="true"/>-->
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Player Four"
-        android:id="@+id/PlayerText4"
-        android:textSize="35dp"
-        android:layout_alignBottom="@+id/name4"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Player Four"-->
+        <!--android:id="@+id/PlayerText4"-->
+        <!--android:textSize="35dp"-->
+        <!--android:layout_alignBottom="@+id/name4"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentStart="true" />-->
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Player Five"
-        android:id="@+id/PlayerText5"
-        android:textSize="35dp"
-        android:layout_alignBottom="@+id/name5"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Player Five"-->
+        <!--android:id="@+id/PlayerText5"-->
+        <!--android:textSize="35dp"-->
+        <!--android:layout_alignBottom="@+id/name5"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentStart="true"/>-->
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Player Six"
-        android:id="@+id/PlayerText6"
-        android:textSize="35dp"
-        android:layout_alignBottom="@+id/name6"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Player Six"-->
+        <!--android:id="@+id/PlayerText6"-->
+        <!--android:textSize="35dp"-->
+        <!--android:layout_alignBottom="@+id/name6"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentStart="true" />-->
 
-</RelativeLayout>
+</LinearLayout>

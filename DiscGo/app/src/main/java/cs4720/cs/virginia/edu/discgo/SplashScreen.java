@@ -23,6 +23,11 @@ public class SplashScreen extends Activity {
         setContentView(R.layout.activity_splashscreen);
     }
 
+    @Override
+    public void onBackPressed() {
+        // do nothing
+    }
+
     public void play(View v) {
         Intent intent = new Intent(SplashScreen.this, NamesActivity.class);
         SplashScreen.this.startActivity(intent);

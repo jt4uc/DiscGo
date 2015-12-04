@@ -88,7 +88,7 @@ public class CreateMapsActivity extends FragmentActivity {
 
     public void doneCreatingCourse(View v) {
         AlertDialog.Builder builder = new AlertDialog.Builder(CreateMapsActivity.this);
-        builder.setMessage("Finished creating your course? Go and play it!");
+        builder.setMessage("Finished creating holes? Go and play!");
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // User clicked OK button

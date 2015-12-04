@@ -27,7 +27,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:onClick="play"
-        android:layout_marginBottom="50dp"
         android:layout_marginTop="50dp"
         android:text=" Play Game "
         android:textColor="#009933"

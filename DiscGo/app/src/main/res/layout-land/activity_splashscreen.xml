@@ -44,6 +44,22 @@
             android:textAllCaps="false"/>
 
         <Button
+            android:id="@+id/createHole"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center_horizontal"
+            android:onClick="createHole"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="50dp"
+            android:text="Create Holes"
+            android:textColor="#009933"
+            android:background="#B8B8B8"
+            android:textAllCaps="false"
+            android:textSize="25dp"/>
+
+        <Button
             android:id="@+id/createCourse"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -58,6 +74,7 @@
             android:background="#B8B8B8"
             android:textAllCaps="false"
             android:textSize="25dp"/>
+
 
 
     </LinearLayout>
