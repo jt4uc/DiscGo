@@ -58,10 +58,22 @@ public class DisplayScoreActivity extends AppCompatActivity {
                 nameTextViews.get(i).setVisibility(View.INVISIBLE);
             } else {
                 nameTextViews.get(i).setText(queryPlayerName(playerIds.get(i)));
-                scoresList.add(queryScores(playerIds.get(i)));
+                int[] score = queryScores(playerIds.get(i));
+                if (score != null) {
+                    scoresList.add(queryScores(playerIds.get(i)));
+                } else {
+                    scoresList = null;
+                    break;
+                }
             }
         }
-        displayTotals();
+        if (scoresList == null) {
+            for (TextView tv : playerTextViews) {
+                tv.setText("0");
+            }
+        } else {
+            displayTotals();
+        }
 
         courseName = getIntent().getStringExtra("course");
         if(!courseName.equals( "Hole"))
@@ -86,31 +98,35 @@ public class DisplayScoreActivity extends AppCompatActivity {
 
     public void next(View view){
 
-        if (holeNum < scoresList.get(0).length - 1) {
-            holeNum += 1;
-        }
+        if (scoresList != null) {
+            if (holeNum < scoresList.get(0).length - 1) {
+                holeNum += 1;
+            }
 
-        if (holeNum <= scoresList.get(0).length - 1) {
-            setTitle("Hole " + (holeNum + 1));
-            for(int i = 0; i < scoresList.size(); i++) {
-                playerTextViews.get(i).setText(Integer.toString(scoresList.get(i)[holeNum]));
+            if (holeNum <= scoresList.get(0).length - 1) {
+                setTitle("Hole " + (holeNum + 1));
+                for(int i = 0; i < scoresList.size(); i++) {
+                    playerTextViews.get(i).setText(Integer.toString(scoresList.get(i)[holeNum]));
+                }
             }
         }
     }
 
     public void previous(View view){
 
-        if (holeNum > -1) {
-            holeNum -= 1;
-        }
-        if (holeNum > -1) {
-            setTitle("Hole " + (holeNum + 1));
-            for(int i = 0; i < scoresList.size(); i++) {
-                playerTextViews.get(i).setText(Integer.toString(scoresList.get(i)[holeNum]));
+        if (scoresList != null) {
+            if (holeNum > -1) {
+                holeNum -= 1;
             }
-        } else {
-            setTitle("Total Scores");
-            displayTotals();
+            if (holeNum > -1) {
+                setTitle("Hole " + (holeNum + 1));
+                for(int i = 0; i < scoresList.size(); i++) {
+                    playerTextViews.get(i).setText(Integer.toString(scoresList.get(i)[holeNum]));
+                }
+            } else {
+                setTitle("Total Scores");
+                displayTotals();
+            }
         }
     }
 
@@ -141,11 +157,13 @@ public class DisplayScoreActivity extends AppCompatActivity {
         try {
             ParseObject player = query.get(playerId);
             List scoresList = player.getList("scores");
-            int[] scores = new int[scoresList.size()];
-            for (int i = 0; i < scoresList.size(); i ++) {
-                scores[i] = (int) scoresList.get(i);
+            if (scoresList != null) {
+                int[] scores = new int[scoresList.size()];
+                for (int i = 0; i < scoresList.size(); i ++) {
+                    scores[i] = (int) scoresList.get(i);
+                }
+                return scores;
             }
-            return scores;
         } catch (ParseException e) {
             e.printStackTrace();
         }
